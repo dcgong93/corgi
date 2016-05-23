@@ -1,8 +1,98 @@
-<html>
+<!DOCTYPE html>
+<html lang="eng">
   <head>
-    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+    <title>Register</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   </head>
   <body>
-    The best place to start is the "WelcomeController.py" file in app/controllers.
+    <!-- BEGINNING OF CONTAINER -->
+    <div class="container">
+
+      <!-- NAV BAR -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <h4>WEBSITE NAME</h4>
+          </div>
+          <div class="collapse navbar-collapse text-right" id="login">
+            <form class="form-inline">
+              <div class="form-group">
+                <label class="sr-only" for="exampleInputEmail3">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Email">
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="exampleInputPassword3">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Password">
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Remember me
+                </label>
+              </div>
+              <button type="submit" class="btn btn-default">Sign in</button>
+            </form>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+      <!-- END OF NAV BAR -->
+
+
+      <div class="row">
+        <!-- REGISTRATION -->
+        <div class="col-sm-8 col-sm-offset-2">
+          <h3>Register</h3><br />
+                {% with messages = get_flashed_messages(category_filter=['reg_errors']) %}
+                  {% if messages %}
+                    {% for message in messages %}
+                      <p style="color:red;">{{message}}</p>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+          <div class="row">
+              <div class="col-sm-10">
+                  <form action="/register" method="post">
+                      <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name">
+                      </div>
+                      <div class="form-group">
+                        <label for="alias">Alias:</label>
+                        <input type="text" class="form-control" id="alias" name="alias">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Email Address:</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" name="email">
+                      </div>
+                      <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                      </div>
+                      <div class="form-group">
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirm_password" name="pw_confirm">
+                      </div>
+                      <div class="form-group">
+                        <label for="date">Date of Birth</label>
+                        <input type="date" class="form-control" id="dob" name="dob">
+                      </div>
+                      <div class="text-right">
+                        <input type="submit" class="btn btn-success" name="submit" value="Register" />
+                      </div>
+                  </form>
+
+              </div>
+          </div>
+        </div>
+        <!-- END REGISTRATION -->
+
+      </div>
+    <!-- END CONTAINER -->
+    </div>
   </body>
 </html>
