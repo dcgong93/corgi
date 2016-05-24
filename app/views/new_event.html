@@ -39,7 +39,7 @@
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li><a href="#">Profile</a></li>
                     <li><a href="#">Edit Profile</a></li>
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="/logout">Logout</a></li>
                   </ul>
                 </div>
               </li>
@@ -55,7 +55,7 @@
       <!-- Form -->
       <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
-          <form action="" method="" id="event_form">
+          <form action="/events/add/new" method="POST" id="event_form">
             <div class="form-group">
               <label for="event_name">Event Name:</label>
               <input type="text" class="form-control" id="event_name" name="event_name" />

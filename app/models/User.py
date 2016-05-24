@@ -64,6 +64,16 @@ class User(Model):
         return False
 
 
-
-
+    def add_event2(self,edata):
+        query = 'INSERT into events (name, date, location, description, max, host_id) values(:name, :date, :location, :description, :max, :host_id)'
+        data = {
+            "name" : edata['name'],
+            "date" : edata['date'],
+            "location" : edata['location'],
+            'description': edata['description'],
+            'max': edata['max'],
+            'host_id': edata['host_id']
+        }
+        self.db.query_db(query, data)
+        return True
 
