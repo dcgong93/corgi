@@ -58,8 +58,9 @@ class User(Model):
         
         if user:
             name = user[0]['first_name']
+            id = user[0]['id']
             if self.bcrypt.check_password_hash(user[0]['pw_hash'], password):
-                return name
+                return {'name':name, 'id':id}
         return False
 
 

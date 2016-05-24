@@ -64,6 +64,7 @@ class Users(Controller):
         if userlogin:
             session['message'] = 'Successfully logged in!'
             session['name'] = userlogin
+            session['id'] = userlogin['id']
             return redirect('/profile')
 
         elif not userlogin:
