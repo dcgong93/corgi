@@ -1,0 +1,30 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+#profile_bar{
+	width: auto;
+	margin: 0 auto;
+	background-color: #b0e0e6;
+}
+
+	#profile_info{
+		padding: 20px;
+		display: inline-block;
+		margin-left: 200px;
+	}
+
+	#dog_info{
+		display: inline-block;
+		vertical-align: top;
+		padding: 20px;
+	}
+
+#main_content{
+
+	width: 80%;
+	margin: 0 auto;
+	padding: 20px;
+}
+
