@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Event Description</title>
+    <title>Users Tables</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
@@ -27,7 +27,6 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                   <li><a href="/dashboard/"><u>Home</u></a></li>
-                  <li><a href="/users/edit/"><u>Users</u></a></li>
                   <li><a href="/users/edit/"><u>My Events</u></a></li>
                 </ul>
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -54,63 +53,76 @@
       </nav>
       <!-- END OF NAV BAR -->
 
-      <!-- HEADER -->
-      <div class="row">
-        <div class="col-sm-6">
-          <h3>[EVENT TITLE]</h3>
-        </div>
+      <!-- FRIENDS TABLE -->
+      <!-- START TABLE -->
+      <div id="friends_table">
+        <h3>Friends</h3>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Dog's Name</th>
+              <th>Dog Type</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for friend in friends %}
+            <tr>
+              <td>{{friend['id']}}</td>
+              <td>{{friend['first_name']}} {{friend['last_name']}}</td>
+              <td>{{friend['email']}}</td>
+              <td>{{friend.dog['name']}}</td>
+              <td>{{friend.dog['type']}}</td>
+              <td>
+                <ul class="list-inline">
+                  <li><a href="/user/show/{{friends.id}}">Show</a></li>
+                  <li><a href="/user/remove/{{friends.id}}">Remove</a></li>
+                </ul>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
-      <div id="event_name" class="row">
-        <div class="col-sm-4">
-          <h4>Host:</h4>
-        </div>
-        <div class="col-sm-8">
-          <h4>[Host names]</h4>
-        </div>
-      </div>
-      <div id="event_name" class="row">
-        <div class="col-sm-4">
-          <p>Date:</p>
-        </div>
-        <div class="col-sm-8">
-          <p>[Date of Event]</p>
-        </div>
-      </div>
-      <div id="event_location" class="row">
-        <div class="col-sm-4">
-          <p>Location:</p>
-        </div>
-        <div class="col-sm-8">
-          <p>[Location of Event]</>
-        </div>
-      </div>
-      <div id="event_description" class="row">
-        <div class="col-sm-4">
-          <p>Description:</p>
-        </div>
-        <div class="col-sm-8">
-          <p>[Description of Event]</>
-        </div>
-      </div>
-      <div id="group_size" class="row">
-        <div class="col-sm-4">
-          <p>group_size:</p>
-        </div>
-        <div class="col-sm-8">
-          <p>[group_size]</>
-        </div>
-      </div>
-      <div id="attending" class="row">
-        <div class="col-sm-4">
-          <p>Attending:</p>
-        </div>
-        <div class="col-sm-8">
-          <p>[List of people attending]</>
-        </div>
-      </div>
-      <!-- END HEADER -->
+      <!-- END FRIENDS TABLE -->
 
-
+      <!-- START OTHER USERS -->
+      <div id="other_users">
+        <h3>Other Users</h3>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Dog's Name</th>
+              <th>Dog Type</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in users %}
+            <tr>
+              <td>{{user['id']}}</td>
+              <td>{{user['first_name']}} {{user['last_name']}}</td>
+              <td>{{user['email']}}</td>
+              <td>{{user.dog['name']}}</td>
+              <td>{{user.dog['type']}}</td>
+              <td>
+                <ul class="list-inline">
+                  <li><a href="/user/show/{{user.id}}">Show</a></li>
+                  <li><a href="/user/remove/{{user.id}}">Add Friend</a></li>
+                </ul>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <!-- END OTHER USERS -->
 
     </div>
   </body>

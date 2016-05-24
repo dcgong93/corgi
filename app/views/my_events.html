@@ -28,7 +28,6 @@
                 <ul class="nav navbar-nav">
                   <li><a href="/dashboard/"><u>Home</u></a></li>
                   <li><a href="/users/edit/"><u>Users</u></a></li>
-                  <li><a href="/users/edit/"><u>My Events</u></a></li>
                 </ul>
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
@@ -54,61 +53,55 @@
       </nav>
       <!-- END OF NAV BAR -->
 
-      <!-- HEADER -->
-      <div class="row">
-        <div class="col-sm-6">
-          <h3>[EVENT TITLE]</h3>
-        </div>
-      </div>
-      <div id="event_name" class="row">
-        <div class="col-sm-4">
-          <h4>Host:</h4>
-        </div>
-        <div class="col-sm-8">
-          <h4>[Host names]</h4>
-        </div>
-      </div>
-      <div id="event_name" class="row">
-        <div class="col-sm-4">
-          <p>Date:</p>
-        </div>
-        <div class="col-sm-8">
-          <p>[Date of Event]</p>
-        </div>
-      </div>
-      <div id="event_location" class="row">
-        <div class="col-sm-4">
-          <p>Location:</p>
-        </div>
-        <div class="col-sm-8">
-          <p>[Location of Event]</>
-        </div>
-      </div>
-      <div id="event_description" class="row">
-        <div class="col-sm-4">
-          <p>Description:</p>
-        </div>
-        <div class="col-sm-8">
-          <p>[Description of Event]</>
-        </div>
-      </div>
-      <div id="group_size" class="row">
-        <div class="col-sm-4">
-          <p>group_size:</p>
-        </div>
-        <div class="col-sm-8">
-          <p>[group_size]</>
-        </div>
-      </div>
-      <div id="attending" class="row">
-        <div class="col-sm-4">
-          <p>Attending:</p>
-        </div>
-        <div class="col-sm-8">
-          <p>[List of people attending]</>
-        </div>
-      </div>
-      <!-- END HEADER -->
+      <!-- My Events -->
+      {% if my_events %}
+        {% for event in my_events %}
+          <div class="row">
+            <div class="col-sm-6">
+              <h4>[EVENT TITLE]</h4>
+            </div>
+          </div>
+          <div id="event_date" class="row">
+            <div class="col-sm-4">
+              <p>Date:</p>
+            </div>
+            <div class="col-sm-8">
+              <p>[date of Event]</p>
+            </div>
+          </div>
+          <div id="event_location" class="row">
+            <div class="col-sm-4">
+              <p>Location:</p>
+            </div>
+            <div class="col-sm-8">
+              <p>[Location of Event]</>
+            </div>
+          </div>
+          <div id="event_description" class="row">
+            <div class="col-sm-4">
+              <p>Description:</p>
+            </div>
+            <div class="col-sm-8">
+              <p>[Description of Event]</>
+            </div>
+          </div>
+          <div id="group_size" class="row">
+            <div class="col-sm-4">
+              <p>group_size:</p>
+            </div>
+            <div class="col-sm-8">
+              <p>[group_size]</>
+            </div>
+            <div class="col-sm-8">
+              <form action="" method="" class="text-right">
+                <input type="submit" class="btn btn-warning" name="remove_event" value="Remove Event" />
+              </form>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <!-- END My Events -->
 
 
 
