@@ -3,6 +3,8 @@
 <head>
 	<title>Profile</title>
 	<!-- Latest compiled and minified CSS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="profile.css">
 	<!-- Optional theme -->
@@ -37,7 +39,7 @@
                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                    <li><a href="#">Profile</a></li>
                    <li><a href="#">Edit Profile</a></li>
-                   <li><a href="#">Logout</a></li>
+                   <li><a href="/logout">Logout</a></li>
                  </ul>
                </div>
              </li>
@@ -56,11 +58,7 @@
 		<div id="dog_info"><img src="http://r.ddmcdn.com/s_f/o_1/cx_633/cy_0/cw_1725/ch_1725/w_720/APL/uploads/2014/11/too-cute-doggone-it-video-playlist.jpg" height="200px" width="200px"><h3>Tommy</h3><h4>Type, Age</h4></div>
 	</div>
 	<div id="main_content">
-		<h3>Name: {{user['name']}}</h3>
-		<h3>Age: {{user['age']}}</h3>
-		<h3>Description {{user['description']}}</h3>
-		<h3>Dog name: {{user['dog_name']}}</h3>
-		<h3>Dog description: {{user['dog_description']}}</h3>
+		
 	</div>
 </body>
 </html>
