@@ -1,4 +1,4 @@
-from system.core.controller import *
+from system.core.controller import *git
 
 class Users(Controller):
     def __init__(self, action):
@@ -10,17 +10,17 @@ class Users(Controller):
         """
         self.load_model('User')
         self.db = self._app.db
-   
+
     def index(self):
         """
-        A loaded model is accessible through the models attribute 
+        A loaded model is accessible through the models attribute
         self.models['WelcomeModel'].get_users()
-        
+
         self.models['WelcomeModel'].add_message()
         # messages = self.models['WelcomeModel'].grab_messages()
         # user = self.models['WelcomeModel'].get_user()
         # to pass information on to a view it's the same as it was with Flask
-        
+
         # return self.load_view('index.html', messages=messages, user=user)
         """
         return self.load_view('index.html')
@@ -42,14 +42,14 @@ class Users(Controller):
         create_status = self.models['User'].register(info)
 
         if create_status['status'] == True:
-            session['id'] = create_status['user']['id'] 
+            session['id'] = create_status['user']['id']
             session['name'] = create_status['user']['first_name']
             session['message'] = 'Successfully registered!'
 
             return redirect('/profile')
         else:
             for message in create_status['errors']:
-                flash(message, 'reg_errors')            
+                flash(message, 'reg_errors')
             return redirect('/')
 
     def profile(self):
@@ -69,9 +69,13 @@ class Users(Controller):
         elif not userlogin:
             flash('Please enter a valid email and password', 'login_errors')
             return redirect('/')
-        
+
 
     def logout(self):
         session.clear()
         return redirect('/')
 
+
+
+
+    TESTING
