@@ -75,7 +75,3 @@ class Users(Controller):
         session.clear()
         return redirect('/')
 
-
-
-
-    TESTING
