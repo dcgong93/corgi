@@ -1,4 +1,4 @@
-from system.core.controller import *git
+from system.core.controller import *
 
 class Users(Controller):
     def __init__(self, action):
@@ -74,4 +74,17 @@ class Users(Controller):
     def logout(self):
         session.clear()
         return redirect('/')
+
+
+
+
+
+
+
+
+
+
+
+
+
 
