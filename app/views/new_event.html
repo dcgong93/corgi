@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Event Description</title>
-
+    <title>New Event</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -10,7 +9,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
 
   </head>
   <body>
@@ -54,53 +52,38 @@
       </nav>
       <!-- END OF NAV BAR -->
 
-      <!-- HEADER -->
+      <!-- Form -->
       <div class="row">
-        <div class="col-sm-6">
-          <h3>[EVENT TITLE]</h3>
+        <div class="col-sm-8 col-sm-offset-2">
+          <form action="" method="" id="event_form">
+            <div class="form-group">
+              <label for="event_name">Event Name:</label>
+              <input type="text" class="form-control" id="event_name" name="event_name" />
+            </div>
+            <div class="form-group">
+              <label for="event_location">Event Location:</label>
+              <input type="text" class="form-control" id="event_location" name="event_location" />
+            </div>
+            <div class="form-group">
+              <label for="event_date">Event Date:</label>
+              <input type="date" class="form-control" id="event_date" name="event_date" />
+            </div>
+            <div class="form-group">
+              <label for="event_description">Event Description:</label>
+              <textarea rows="5" cols="50" class="form-control" form="event_form" name="event_description"></textarea>
+            </div>
+            <div class="form-group col-sm-2">
+              <label for="max_people">Max People:</label>
+              <input type="number" class="form-control" id="max_people" name="max_people" />
+            </div><br />
+            <div class="text-right">
+              <input type="submit" class="btn btn-success" id="submit" name="submit" value="Create New"/>
+            </div>
+          </form>
         </div>
       </div>
-      <div id="event_name" class="row">
-        <div class="col-sm-4">
-          <h4>Name:</h4>
-        </div>
-        <div class="col-sm-8">
-          <h4>[Name of Event]</h4>
-        </div>
-      </div>
-      <div id="event_location" class="row">
-        <div class="col-sm-4">
-          <p>Location:</p>
-        </div>
-        <div class="col-sm-8">
-          <p>[Location of Event]</>
-        </div>
-      </div>
-      <div id="event_description" class="row">
-        <div class="col-sm-4">
-          <p>Description:</p>
-        </div>
-        <div class="col-sm-8">
-          <p>[Description of Event]</>
-        </div>
-      </div>
-      <div id="group_size" class="row">
-        <div class="col-sm-4">
-          <p>group_size:</p>
-        </div>
-        <div class="col-sm-8">
-          <p>[group_size]</>
-        </div>
-      </div>
-      <div id="attending" class="row">
-        <div class="col-sm-4">
-          <p>Attending:</p>
-        </div>
-        <div class="col-sm-8">
-          <p>[List of people attending]</>
-        </div>
-      </div>
-      <!-- END HEADER -->
+
+      <!-- END form -->
 
 
 
