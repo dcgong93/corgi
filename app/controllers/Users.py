@@ -33,7 +33,7 @@ class Users(Controller):
             session['name'] = create_status['user']['first_name']
             session['message'] = 'Successfully registered!'
 
-            return redirect('/profile/<id>')
+            return redirect('/profile/' + str(session['id']))
         else:
             for message in create_status['errors']:
                 flash(message, 'reg_errors')
@@ -51,7 +51,7 @@ class Users(Controller):
             session['message'] = 'Successfully logged in!'
             session['name'] = userlogin['name']
             session['id'] = userlogin['id']
-            return redirect('/profile/<id>')
+            return redirect('/profile/'+ str(session['id']))
 
         elif not userlogin:
             flash('Please enter a valid email and password', 'login_errors')
@@ -93,7 +93,7 @@ class Users(Controller):
     def append_message_control(self):
         append_message = self.models['User'].append_message_model()
         return self.load_view('dashboard.html', append_message = append_message)
-        
+
 
     def users(self):
         id=session['id']
