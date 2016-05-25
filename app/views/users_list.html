@@ -38,15 +38,15 @@
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#">Profile</a></li>
+                    <li><a href="/profile">Profile</a></li>
                     <li><a href="#">Edit Profile</a></li>
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="/logout">Logout</a></li>
                   </ul>
                 </div>
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right" style="margin-right:10px">
-              <li><p>Welcome {{session['name']}}</p></li>
+              <li><p>Welcome {{user.first_name}}</p></li>
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
@@ -60,7 +60,6 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>ID</th>
               <th>Name</th>
               <th>Email</th>
               <th>Dog's Name</th>
@@ -69,21 +68,20 @@
             </tr>
           </thead>
           <tbody>
-            {% for friend in friends %}
+          {% for friend in friends %}
             <tr>
-              <!-- <td>{{friend['id']}}</td>
-              <td>{{friend['first_name']}} {{friend['last_name']}}</td>
+              <td>{{user['first_name']}} {{friend['last_name']}}</td>
               <td>{{friend['email']}}</td>
-              <td>{{friend.dog['name']}}</td>
-              <td>{{friend.dog['type']}}</td>
-              <td> -->
+              <td></td>
+              <td></td>
+              <td>
                 <ul class="list-inline">
-                  <li><a href="/user/show/{{friends.id}}">Show</a></li>
-                  <li><a href="/user/remove/{{friends.id}}">Remove</a></li>
+                  <li><a href="/profile/{{user.id}}">Show</a></li>
+                  <li><a href="/user/remove/{{user.id}}">Remove Friend</a></li>
                 </ul>
               </td>
             </tr>
-            {% endfor %}
+          {% endfor %}
           </tbody>
         </table>
       </div>
@@ -95,7 +93,6 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>ID</th>
               <th>Name</th>
               <th>Email</th>
               <th>Dog's Name</th>
@@ -104,17 +101,16 @@
             </tr>
           </thead>
           <tbody>
-          {% for user in users %}
+          {% for user in other_users %}
             <tr>
-              <!-- <td>{{user['id']}}</td>
               <td>{{user['first_name']}} {{user['last_name']}}</td>
               <td>{{user['email']}}</td>
-              <td>{{user.dog['name']}}</td>
-              <td>{{user.dog['type']}}</td>
-              <td> -->
+              <td></td>
+              <td></td>
+              <td>
                 <ul class="list-inline">
                   <li><a href="/user/show/{{user.id}}">Show</a></li>
-                  <li><a href="/user/remove/{{user.id}}">Add Friend</a></li>
+                  <li><a href="/user/Add/{{user.id}}">Add Friend</a></li>
                 </ul>
               </td>
             </tr>

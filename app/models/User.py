@@ -71,12 +71,12 @@ class User(Model):
         return self.db.query_db(get_id_query, data)
 
     def show_friends(self,id):
-        join = "SELECT * FROM users LEFT JOIN friendships ON users.id = friendships.user_id LEFT JOIN users AS users2 on users2.id = friendships.friend_id"
+        join = "SELECT * FROM users LEFT JOIN friendships ON users.id = friendships.user_id LEFT JOIN users AS users2 on users2.id = friendships.friend_id WHERE users.id = :id AND users.id != :id"
         data = {'id':id}
         return self.db.query_db(join,data)
 
     def get_other_users(self,id):
-        get_all = "SELECT * FROM users AS users2 WHERE users2.id NOT IN (SELECT user_id FROM friendships WHERE id=:id)"
+        get_all = "SELECT * FROM users AS users2 WHERE users2.id NOT IN (SELECT user_id FROM friendships WHERE id=:id) AND users2.id != :id"
         data = {'id':id}
         return self.db.query_db(get_all, data)
 
@@ -92,3 +92,21 @@ class User(Model):
         }
         self.db.query_db(query, data)
         return True
+
+    def get_events_hosting(self,id):
+        query = 'SELECT * FROM events WHERE host_id = :id'
+        data = {
+            'id': id
+        }
+        return self.db.query_db(query, data)
+
+    def get_events_attending(self,id):
+
+        return self.db.query_db(query, data)
+
+    def get_event(self,id):
+        query = 'SELECT * FROM events WHERE id = :id'
+        data = {
+            'id': id
+        }
+        return self.db.query_db(query, data)

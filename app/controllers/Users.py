@@ -38,8 +38,7 @@ class Users(Controller):
                 flash(message, 'reg_errors')
             return redirect('/')
 
-    def profile(self):
-        return self.load_view('profile.html')
+
 
     def login(self):
         info = {
@@ -56,6 +55,12 @@ class Users(Controller):
         elif not userlogin:
             flash('Please enter a valid email and password', 'login_errors')
             return redirect('/')
+
+    def profile(self):
+        id = session['id']
+        events_hosting = self.models['User'].get_events_hosting(id)
+#        events_attending = self.models['User'].get_events_attending(id)
+        return self.load_view('profile.html', events_hosting = events_hosting)
 
 
     def logout(self):
@@ -83,4 +88,11 @@ class Users(Controller):
         }
         self.models['User'].add_event2(edata)
 
-        return redirect('/dashboard')
+        return redirect('/profile')
+
+    def event_description(self,id):
+        id = id
+        event = self.models['User'].get_event(id)
+        return self.load_view('event_description.html', event = event)
+
+
