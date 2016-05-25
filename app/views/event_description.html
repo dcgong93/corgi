@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title>Event Description</title>
-
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -11,6 +11,31 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+    <script>
+      var myCenter=new google.maps.LatLng(37.55328765,-122.16522217);
+      var marker;
+
+      function initialize()
+      {
+      var mapProp = {
+          center:myCenter,
+          zoom:12,
+          mapTypeId:google.maps.MapTypeId.ROADMAP
+          };
+
+      var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+      var marker=new google.maps.Marker({
+        position:myCenter,
+        icon:'http://www.thepoochpatio.com/images/dog-paw-print-clip-art-free-download-aiqepegqt.png',
+        animation:google.maps.Animation.BOUNCE
+        });
+
+    marker.setMap(map);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
 
   </head>
   <body>
@@ -86,6 +111,7 @@
         <div class="col-sm-8">
           <p>{{event[0]['location']}}</p>
         </div>
+        <div id="googleMap" style="width:500px;height:380px;"></div>
       </div>
       <div id="event_description" class="row">
         <div class="col-sm-4">
