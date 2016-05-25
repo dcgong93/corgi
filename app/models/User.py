@@ -106,7 +106,7 @@ class User(Model):
         return self.db.query_db(get_id_query, data)
 
     def show_friends(self,id):
-        join = "SELECT * FROM users LEFT JOIN friendships ON users.id = friendships.user_id LEFT JOIN users AS users2 on users2.id = friendships.friend_id WHERE users.id = :id"
+        join = "SELECT * FROM users JOIN friendships ON users.id = friendships.user_id LEFT JOIN users AS users2 on users2.id = friendships.friend_id WHERE users.id = :id"
         data = {'id':id}
         return self.db.query_db(join,data)
 

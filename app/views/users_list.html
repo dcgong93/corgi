@@ -38,7 +38,6 @@
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li><a href="/profile/{{session['id']}}">Profile</a></li>
-                    <li><a href="#">Edit Profile</a></li>
                     <li><a href="/logout">Logout</a></li>
                   </ul>
                 </div>
@@ -55,6 +54,7 @@
       <!-- FRIENDS TABLE -->
       <!-- START TABLE -->
       <div id="friends_table">
+        {% if friends %}
         <h3>Friends</h3>
         <table class="table table-striped">
           <thead>
@@ -67,7 +67,7 @@
             </tr>
           </thead>
           <tbody>
-          {% for friend in friends %}
+            {% for friend in friends %}
             <tr>
               <td>{{friend['first_name']}} {{friend['last_name']}}</td>
               <td>{{friend['email']}}</td>
@@ -80,7 +80,11 @@
                 </ul>
               </td>
             </tr>
-          {% endfor %}
+            {% endfor %}
+          {% endif %}
+          {% if not friends %}
+            <h4>Add some friends!</h4>
+          {% endif %}
           </tbody>
         </table>
       </div>
