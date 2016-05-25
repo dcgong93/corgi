@@ -12,7 +12,7 @@
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-	
+
 </head>
 <body>
 <!-- NAV BAR -->
@@ -25,6 +25,7 @@
          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                <ul class="nav navbar-nav">
                  <li><a href="/dashboard/"><u>Home</u></a></li>
+                 <li><a href="/users/"><u>Users</u></a></li>
                  <li><a href="/users/edit/"><u>Users</u></a></li>
                  <li><a href="/users/edit/"><u>My Events</u></a></li>
                  <li><a href="/events/add"><u>Add an Event</u></a></li>
@@ -46,7 +47,7 @@
              </li>
            </ul>
            <ul class="nav navbar-nav navbar-right" style="margin-right:10px">
-             <li><p>Welcome [USER]</p></li>
+             <li><p>Welcome {{session['name']}}</p></li>
            </ul>
          </div><!-- /.navbar-collapse -->
        </div><!-- /.container-fluid -->
@@ -72,6 +73,7 @@
 
       <div id="attending">
           <h2>Events I'm attending</h2>
+<<<<<<< HEAD
           {% for event in events_attending: %}
             div>
               <h3><a href="/event_description/{{event['id']}}">{{event['name']}}</a></h3>
@@ -79,6 +81,9 @@
               <p>{{event['description']}}</p>
             </div><br><br><br>
           {% endfor %}
+=======
+        
+>>>>>>> ec1cb09555bd0e1475c68ee69d41b227c8746b02
       </div>
 	</div>
 </body>
