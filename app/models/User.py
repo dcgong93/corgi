@@ -85,7 +85,10 @@ class User(Model):
         return self.db.query_db(query, data)
 
     def get_events_attending(self,id):
-        
+        query = 'SELECT * FROM users_attending LEFT JOIN events ON users_attending.event_id = events.id WHERE user_id = :id'
+        data = {
+            'id': id
+        }
         return self.db.query_db(query, data)
 
     def get_event(self,id):
@@ -101,7 +104,8 @@ class User(Model):
             "user_id": adata['user_id'],
             "event_id": adata['event_id']
         }
-        self.db.query_db(query, data)
+
+        response = self.db.query_db(query, data)
         return True
 
     def get_attending_people(self,id):
@@ -110,3 +114,12 @@ class User(Model):
             'id': id
         }
         return self.db.query_db(query, data)
+
+    def stop_attend(self,adata):
+        query = 'DELETE FROM users_attending WHERE user_id = :user_id AND event_id = :event_id' 
+        data = {
+            'user_id' : adata['user_id'],
+            'event_id' : adata['event_id']
+        }
+        response = self.db.query_db(query, data)
+        return True

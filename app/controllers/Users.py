@@ -59,8 +59,8 @@ class Users(Controller):
     def profile(self):
         id = session['id']
         events_hosting = self.models['User'].get_events_hosting(id)
-#        events_attending = self.models['User'].get_events_attending(id)
-        return self.load_view('profile.html', events_hosting = events_hosting)
+        events_attending = self.models['User'].get_events_attending(id)
+        return self.load_view('profile.html', events_hosting = events_hosting, events_attending = events_attending)
 
 
     def logout(self):
@@ -96,4 +96,14 @@ class Users(Controller):
             'user_id':session['id']
         }
         attend = self.models['User'].attend(adata)
+
         return redirect('/event_description/' + id)
+        
+    def stop_attend(self,id):
+        id = id
+        adata = {
+            'event_id' : id,
+            'user_id': session['id']
+        }
+        stop_attend = self.models['User'].stop_attend(adata)
+        return redirect('/profile')
