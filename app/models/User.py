@@ -1,9 +1,12 @@
 from system.core.model import Model
+
 import re
+
 
 class User(Model):
     def __init__(self):
         super(User, self).__init__()
+
 
     def register(self,info):
         password = info['password']
@@ -57,11 +60,38 @@ class User(Model):
 
 
         if user:
+
             name = user[0]['first_name']
             id = user[0]['id']
             if self.bcrypt.check_password_hash(user[0]['pw_hash'], password):
                 return {'name':name, 'id':id}
-        return False
+            else:        
+                return False
+
+    # def user(self):
+    #     query = "SELECT * FROM users WHERE id = :id"
+    #     data = {
+    #         'id': id
+    #     }
+
+    #     current_user = self.db.query_db(query, data)
+    #     return current_user
+
+
+    def add_message_model(self, message_info):
+        query = "INSERT INTO events (name, date, location, description, host_id) VALUES (:name, :date, :location, :description, :host_id)"
+        data = {
+            'name': message_info['headline'],
+            'date': message_info['date'],
+            'location':message_info['location'],
+            'description': message_info['message'],
+            'host_id': message_info['host_id']
+
+        }
+
+        return self.db.query_db(query, data)
+
+    
 
     def get_user_id(self,id):
         get_id_query = "SELECT * FROM users WHERE id= :id"
