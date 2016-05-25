@@ -91,6 +91,11 @@ class User(Model):
 
         return self.db.query_db(query, data)
 
+    def append_message_model(self):
+        query = "SELECT users.first_name, users.last_name, events.id as id, events.name as Headline, events.description as Description FROM users JOIN events on users.id = events.host_id ORDER BY id desc"
+        append_message = self.db.query_db(query)
+        return append_message
+
 
 
     def get_user_id(self,id):

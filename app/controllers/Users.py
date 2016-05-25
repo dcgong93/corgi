@@ -88,7 +88,12 @@ class Users(Controller):
         }
 
         self.models['User'].add_message_model(message_info)
-        return self.load_view('dashboard.html')
+        return redirect('/dashboard')
+
+    def append_message_control(self):
+        append_message = self.models['User'].append_message_model()
+        return self.load_view('dashboard.html', append_message = append_message)
+        
 
     def users(self):
         id=session['id']
