@@ -91,6 +91,9 @@ class User(Model):
 
         return self.db.query_db(query, data)
 
+
+    
+
     
 
     def get_user_id(self,id):
