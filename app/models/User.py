@@ -77,3 +77,20 @@ class User(Model):
         self.db.query_db(query, data)
         return True
 
+    def get_events_hosting(self,id):
+        query = 'SELECT * FROM events WHERE host_id = :id'
+        data = {
+            'id': id
+        }
+        return self.db.query_db(query, data)
+
+    def get_events_attending(self,id):
+        
+        return self.db.query_db(query, data)
+
+    def get_event(self,id):
+        query = 'SELECT * FROM events WHERE id = :id'
+        data = {
+            'id': id
+        }
+        return self.db.query_db(query, data)
