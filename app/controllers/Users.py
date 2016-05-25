@@ -33,7 +33,7 @@ class Users(Controller):
             session['name'] = create_status['user']['first_name']
             session['message'] = 'Successfully registered!'
 
-            return redirect('/profile')
+            return redirect('/profile/<id>')
         else:
             for message in create_status['errors']:
                 flash(message, 'reg_errors')
@@ -61,7 +61,7 @@ class Users(Controller):
     def profile(self, id):
         id = session['id']
         user_info = self.models['User'].get_user_id(id)
-        events_attending = self.models['User'].get_events_attending(id)
+        events_hosting = self.models['User'].get_events_hosting(id)
         events_attending = self.models['User'].get_events_attending(id)
         return self.load_view('profile.html', events_hosting = events_hosting, events_attending = events_attending, user = user_info[0] )
 
@@ -137,12 +137,11 @@ class Users(Controller):
         stop_attend = self.models['User'].stop_attend(adata)
         return redirect('/profile')
 
-    def add_friend(self,friend_id):
+    def add_friend(self,id):
+        id=id
         info = {
             'friend_id':id,
             'user_id': session['id']
         }
-        print info
         friend = self.models['User'].add_friend_now(info)
-        print friend
         return redirect ('/users')

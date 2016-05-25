@@ -65,7 +65,7 @@ class User(Model):
             id = user[0]['id']
             if self.bcrypt.check_password_hash(user[0]['pw_hash'], password):
                 return {'name':name, 'id':id}
-            else:        
+            else:
                 return False
 
     # def user(self):
@@ -91,7 +91,7 @@ class User(Model):
 
         return self.db.query_db(query, data)
 
-    
+
 
     def get_user_id(self,id):
         get_id_query = "SELECT * FROM users WHERE id= :id"
@@ -131,14 +131,10 @@ class User(Model):
         return self.db.query_db(query, data)
 
     def get_events_attending(self,id):
-<<<<<<< HEAD
         query = 'SELECT * FROM users_attending LEFT JOIN events ON users_attending.event_id = events.id WHERE user_id = :id'
         data = {
             'id': id
         }
-=======
-
->>>>>>> ec1cb09555bd0e1475c68ee69d41b227c8746b02
         return self.db.query_db(query, data)
 
     def get_event(self,id):
@@ -166,16 +162,15 @@ class User(Model):
         }
         return self.db.query_db(query, data)
 
-<<<<<<< HEAD
     def stop_attend(self,adata):
-        query = 'DELETE FROM users_attending WHERE user_id = :user_id AND event_id = :event_id' 
+        query = 'DELETE FROM users_attending WHERE user_id = :user_id AND event_id = :event_id'
         data = {
             'user_id' : adata['user_id'],
             'event_id' : adata['event_id']
         }
         response = self.db.query_db(query, data)
         return True
-=======
+
     def add_friend_now(self,info):
         query = "INSERT INTO friendships (user_id, friend_id) VALUES (:user_id, :friend_id)"
         data = {
@@ -183,4 +178,3 @@ class User(Model):
             'friend_id': info['friend_id']
         }
         return self.db.query_db(query,data)
->>>>>>> ec1cb09555bd0e1475c68ee69d41b227c8746b02

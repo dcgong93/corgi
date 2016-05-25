@@ -48,11 +48,9 @@
              </li>
            </ul>
            <ul class="nav navbar-nav navbar-right" style="margin-right:10px">
-<<<<<<< HEAD
-             <li><p>Welcome {{users.first_name}}</p></li>
-=======
+
              <li><p>Welcome {{user.first_name}}</p></li>
->>>>>>> fba872f90e676da2558f1b35abf8b982b02965ea
+
            </ul>
          </div><!-- /.navbar-collapse -->
        </div><!-- /.container-fluid -->
@@ -78,10 +76,7 @@
 
       <div id="attending">
           <h2>Events I'm attending</h2>
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
           {% for event in events_attending: %}
             div>
               <h3><a href="/event_description/{{event['id']}}">{{event['name']}}</a></h3>
@@ -89,10 +84,7 @@
               <p>{{event['description']}}</p>
             </div><br><br><br>
           {% endfor %}
-=======
-        
->>>>>>> ec1cb09555bd0e1475c68ee69d41b227c8746b02
->>>>>>> fa2e059e85f44922c7b1deb59813ef696bb94c01
+
       </div>
 	</div>
 </body>
