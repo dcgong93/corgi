@@ -31,7 +31,7 @@ class User(Model):
             errors.append('Password must be at least 8 characters long')
         elif info['password'] != info['pw_confirmation']:
             errors.append('Password and confirmation must match!')
-    
+
         if errors:
             return {"status": False, "errors": errors}
         else:
@@ -58,23 +58,24 @@ class User(Model):
 
         user = self.db.query_db(user_query, user_data)
 
-        
+
         if user:
+
             name = user[0]['first_name']
             id = user[0]['id']
             if self.bcrypt.check_password_hash(user[0]['pw_hash'], password):
                 return {'name':name, 'id':id}
-        else:        
-            return False
+            else:        
+                return False
 
-    def user(self):
-        query = "SELECT * FROM users WHERE id = :id"
-        data = {
-            'id': id
-        }
+    # def user(self):
+    #     query = "SELECT * FROM users WHERE id = :id"
+    #     data = {
+    #         'id': id
+    #     }
 
-        current_user = self.db.query_db(query, data)
-        return current_user
+    #     current_user = self.db.query_db(query, data)
+    #     return current_user
 
 
     def add_message_model(self, message_info):
@@ -92,6 +93,22 @@ class User(Model):
 
     
 
+    def get_user_id(self,id):
+        get_id_query = "SELECT * FROM users WHERE id= :id"
+        data = {
+            'id':id
+        }
+        return self.db.query_db(get_id_query, data)
+
+    def show_friends(self,id):
+        join = "SELECT * FROM users LEFT JOIN friendships ON users.id = friendships.user_id LEFT JOIN users AS users2 on users2.id = friendships.friend_id WHERE users.id = :id"
+        data = {'id':id}
+        return self.db.query_db(join,data)
+
+    def get_other_users(self,id):
+        get_all = "SELECT * FROM users AS users2 WHERE users2.id NOT IN (SELECT user_id FROM friendships WHERE id=:id) AND users2.id != :id"
+        data = {'id':id}
+        return self.db.query_db(get_all, data)
 
     def add_event2(self,edata):
         query = 'INSERT into events (name, date, location, description, max, host_id) values(:name, :date, :location, :description, :max, :host_id)'
@@ -114,7 +131,7 @@ class User(Model):
         return self.db.query_db(query, data)
 
     def get_events_attending(self,id):
-        
+
         return self.db.query_db(query, data)
 
     def get_event(self,id):
@@ -123,6 +140,7 @@ class User(Model):
             'id': id
         }
         return self.db.query_db(query, data)
+
 
     def attend(self,adata):
         query = 'INSERT into users_attending (user_id, event_id) values(:user_id, :event_id)'
@@ -139,3 +157,11 @@ class User(Model):
             'id': id
         }
         return self.db.query_db(query, data)
+
+    def add_friend_now(self,info):
+        query = "INSERT INTO friendships (user_id, friend_id) VALUES (:user_id, :friend_id)"
+        data = {
+            'user_id': info['user_id'],
+            'friend_id': info['friend_id']
+        }
+        return self.db.query_db(query,data)
