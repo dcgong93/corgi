@@ -28,7 +28,7 @@ class User(Model):
             errors.append('Password must be at least 8 characters long')
         elif info['password'] != info['pw_confirmation']:
             errors.append('Password and confirmation must match!')
-    
+
         if errors:
             return {"status": False, "errors": errors}
         else:
@@ -55,14 +55,26 @@ class User(Model):
 
         user = self.db.query_db(user_query, user_data)
 
-        
+
         if user:
             name = user[0]['first_name']
             if self.bcrypt.check_password_hash(user[0]['pw_hash'], password):
                 return name
         return False
 
+    def get_user_id(self,id):
+        get_id_query = "SELECT * FROM users WHERE id= :id"
+        data = {
+            'id':id
+        }
+        return self.db.query_db(get_id_query, data)
 
+    def show_friends(self,id):
+        join = "SELECT * FROM users LEFT JOIN friendships ON users.id = friendships.user_id LEFT JOIN users AS users2 on users2.id = friendships.friend_id"
+        data = {'id':id}
+        return self.db.query_db(join,data)
 
-
-
+    def get_other_users(self,id):
+        get_all = "SELECT * FROM users AS users2 WHERE users2.id NOT IN (SELECT user_id FROM friendships WHERE id=:id)"
+        data = {'id':id}
+        return self.db.query_db(get_all, data)

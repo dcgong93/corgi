@@ -75,3 +75,9 @@ class Users(Controller):
         session.clear()
         return redirect('/')
 
+    def users(self):
+        id=session['id']
+        user = self.models['User'].get_user_id(id)
+        friends = self.models['User'].show_friends(id)
+        other_users=self.models['User'].get_other_users(id)
+        return self.load_view('users_list.html', user=user[0], friends=friends, other_users=other_users)
