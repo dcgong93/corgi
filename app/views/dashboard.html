@@ -13,21 +13,20 @@
 
   </script>
 
- 
+
   </head>
   <body>
 		  <nav class="navbar navbar-default"> <!-- Beginnging of Navbar -->
 		  	<div class="container">
 		  		<ul class="nav nav-pills">
 				  <li role="presentation" class="active"><a href="#">Dashboard</a></li>
-				  <li role="presentation"><a href="#">Users</a></li>
-				  <li role="presentation"><a href="#">My Events</a></li>
+				  <li role="presentation"><a href="/users">Users</a></li>
 				  <li role="presentation" class="dropdown pull-right">
 				    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 				      Hello! <span class="caret"></span>
 				    </a>
 				    <ul class="dropdown-menu">
-				      <li><a href="#">Profile</a></li>
+				      <li><a href="/profile/<id>">Profile</a></li>
 				      <li><a href="#">Edit</a></li>
 				      <hr>
 				      <li><a href="#">Log Out</a></li>
@@ -49,20 +48,24 @@
 		<div class="container"> <!-- Beginning of container -->
 			<div class="row">
 				<div id= "message_background" class="col-md-8">
-
+					{% for message in append_message %}
 					<div class="row">
 						<div id= "message_board" class="col-md-6 col-md-offset-3">
-						 	<div class="row">
+						
+						 	<div class="row white_color">
 						      <div class="col-xs-8 col-sm-4">
 						        <img src="http://pokeapi.co/media/img/1.png" alt="Pokemon" class="img-circle">
+						        <p>{{message['first_name']}} {{message['last_name']}}</p>
 						      </div>
 						      <div class="col-xs-4 col-sm-8">
-						        <h2>Meet up at Central Park!</h2>
-						        <p>Cmon by to Santa Clara Central Park located in Santa Clara. Bring your dog! Corgi only.</p>
+						        <h2>{{message['Headline']}}</h2>
+						        <p>{{message['Description']}}</p>
 						      </div>
 						    </div>
 						</div>
-					</div>	
+						
+					</div>
+					{% endfor %}
 				</div>
 
 				<div class="col-md-4">
@@ -114,29 +117,26 @@
 							      </div>
 							    </div>
 							  </div>
-							</div>	
+							</div>
 							<!-- End of Modal -->
 
 						</div>
 					</div>
-				</div>	  
+				</div>
 			</div>
 		</div> <!-- End of Container -->
-	
 
 
 
-	  
+
+
 	  <!-- Jquery CDN -->
-	  
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
 
-	  
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+
 	  <!-- Latest compiled and minified JavaScript -->
 
 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   </body>
 </html>
-
-
-

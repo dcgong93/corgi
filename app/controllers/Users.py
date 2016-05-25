@@ -33,7 +33,7 @@ class Users(Controller):
             session['name'] = create_status['user']['first_name']
             session['message'] = 'Successfully registered!'
 
-            return redirect('/profile')
+            return redirect('/profile/<id>')
         else:
             for message in create_status['errors']:
                 flash(message, 'reg_errors')
@@ -51,21 +51,20 @@ class Users(Controller):
             session['message'] = 'Successfully logged in!'
             session['name'] = userlogin['name']
             session['id'] = userlogin['id']
-
             return redirect('/profile/<id>')
 
         elif not userlogin:
             flash('Please enter a valid email and password', 'login_errors')
             return redirect('/')
-            
+
 
     def profile(self, id):
         id = session['id']
-        events_hosting = self.models['User'].get_events_hosting(id)
         user_info = self.models['User'].get_user_id(id)
-        events_attending = self.models['User'].get_events_attending
-#        events_attending = self.models['User'].get_events_attending(id)
+        events_hosting = self.models['User'].get_events_hosting(id)
+        events_attending = self.models['User'].get_events_attending(id)
         return self.load_view('profile.html', events_hosting = events_hosting, events_attending = events_attending, user = user_info[0] )
+
 
 
     def logout(self):
@@ -83,11 +82,16 @@ class Users(Controller):
             'headline': request.form['headline'],
             'message': request.form['message'],
             'host_id': session['id']
-           
+
         }
 
         self.models['User'].add_message_model(message_info)
-        return self.load_view('dashboard.html')
+        return redirect('/dashboard')
+
+    def append_message_control(self):
+        append_message = self.models['User'].append_message_model()
+        return self.load_view('dashboard.html', append_message = append_message)
+        
 
     def users(self):
         id=session['id']
@@ -126,12 +130,23 @@ class Users(Controller):
             'user_id':session['id']
         }
         attend = self.models['User'].attend(adata)
+
         return redirect('/event_description/' + id)
 
-
-    def add_friend(self,friend_id):
-        info = {
-            'friend_id':friend_id,
+    def stop_attend(self,id):
+        id = id
+        adata = {
+            'event_id' : id,
             'user_id': session['id']
         }
+        stop_attend = self.models['User'].stop_attend(adata)
+        return redirect('/profile')
 
+    def add_friend(self,id):
+        id=id
+        info = {
+            'friend_id':id,
+            'user_id': session['id']
+        }
+        friend = self.models['User'].add_friend_now(info)
+        return redirect ('/users')

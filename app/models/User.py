@@ -65,7 +65,7 @@ class User(Model):
             id = user[0]['id']
             if self.bcrypt.check_password_hash(user[0]['pw_hash'], password):
                 return {'name':name, 'id':id}
-            else:        
+            else:
                 return False
 
     # def user(self):
@@ -91,10 +91,12 @@ class User(Model):
 
         return self.db.query_db(query, data)
 
+    def append_message_model(self):
+        query = "SELECT users.first_name, users.last_name, events.id as id, events.name as Headline, events.description as Description FROM users JOIN events on users.id = events.host_id ORDER BY id desc"
+        append_message = self.db.query_db(query)
+        return append_message
 
-    
 
-    
 
     def get_user_id(self,id):
         get_id_query = "SELECT * FROM users WHERE id= :id"
@@ -109,7 +111,7 @@ class User(Model):
         return self.db.query_db(join,data)
 
     def get_other_users(self,id):
-        get_all = "SELECT * FROM users AS users2 WHERE users2.id NOT IN (SELECT user_id FROM friendships WHERE id=:id) AND users2.id != :id"
+        get_all = "SELECT * FROM users AS users2 WHERE users2.id NOT IN (SELECT friend_id FROM friendships WHERE id=:id) AND users2.id != :id"
         data = {'id':id}
         return self.db.query_db(get_all, data)
 
@@ -134,7 +136,10 @@ class User(Model):
         return self.db.query_db(query, data)
 
     def get_events_attending(self,id):
-
+        query = 'SELECT * FROM users_attending LEFT JOIN events ON users_attending.event_id = events.id WHERE user_id = :id'
+        data = {
+            'id': id
+        }
         return self.db.query_db(query, data)
 
     def get_event(self,id):
@@ -151,7 +156,8 @@ class User(Model):
             "user_id": adata['user_id'],
             "event_id": adata['event_id']
         }
-        self.db.query_db(query, data)
+
+        response = self.db.query_db(query, data)
         return True
 
     def get_attending_people(self,id):
@@ -160,6 +166,15 @@ class User(Model):
             'id': id
         }
         return self.db.query_db(query, data)
+
+    def stop_attend(self,adata):
+        query = 'DELETE FROM users_attending WHERE user_id = :user_id AND event_id = :event_id'
+        data = {
+            'user_id' : adata['user_id'],
+            'event_id' : adata['event_id']
+        }
+        response = self.db.query_db(query, data)
+        return True
 
     def add_friend_now(self,info):
         query = "INSERT INTO friendships (user_id, friend_id) VALUES (:user_id, :friend_id)"

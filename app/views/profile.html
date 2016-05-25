@@ -26,7 +26,7 @@
                <ul class="nav navbar-nav">
 
                  <li><a href="/dashboard"><u>Home</u></a></li>
-                 <li><a href="/users/"><u>Users</u></a></li>
+                 <li><a href="/users"><u>Users</u></a></li>
                  <li><a href="/users/edit/"><u>Users</u></a></li>
                  <li><a href="/users/edit/"><u>My Events</u></a></li>
                  <li><a href="/events/add"><u>Add an Event</u></a></li>
@@ -48,7 +48,9 @@
              </li>
            </ul>
            <ul class="nav navbar-nav navbar-right" style="margin-right:10px">
+
              <li><p>Welcome {{user.first_name}}</p></li>
+
            </ul>
          </div><!-- /.navbar-collapse -->
        </div><!-- /.container-fluid -->
@@ -64,7 +66,6 @@
 		  <div id="hosting">
           <h2>Events I'm hosting</h2>
           {% for event in events_hosting: %}
-<!--             {{ event }} -->
             <div>
               <h3><a href="/event_description/{{event['id']}}">{{event['name']}}</a></h3>
               <h5>{{ event['location'] }} {{ event['date'] }}</h5>
@@ -75,7 +76,15 @@
 
       <div id="attending">
           <h2>Events I'm attending</h2>
-        
+
+          {% for event in events_attending: %}
+            div>
+              <h3><a href="/event_description/{{event['id']}}">{{event['name']}}</a></h3>
+              <h5>{{ event['location'] }} {{ event['date'] }}</h5>
+              <p>{{event['description']}}</p>
+            </div><br><br><br>
+          {% endfor %}
+
       </div>
 	</div>
 </body>

@@ -26,7 +26,7 @@
           </div>
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                  <li><a href="/dashboard/"><u>Home</u></a></li>
+                  <li><a href="/dashboard"><u>Home</u></a></li>
                 </ul>
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
@@ -69,7 +69,7 @@
           <tbody>
           {% for friend in friends %}
             <tr>
-              <td>{{user['first_name']}} {{friend['last_name']}}</td>
+              <td>{{friend['first_name']}} {{friend['last_name']}}</td>
               <td>{{friend['email']}}</td>
               <td></td>
               <td></td>
@@ -108,8 +108,8 @@
               <td></td>
               <td>
                 <ul class="list-inline">
-                  <li><a href="/profile/{{user.id}}">Show</a></li>
-                  <li><a href="/add_friend/{{user.id}}">Add Friend</a></li>
+                  <li><a href="/profile/{{user['id']}}">Show</a></li>
+                  <li><a href="/add_friend/{{user['id']}}">Add Friend</a></li>
                 </ul>
               </td>
             </tr>
