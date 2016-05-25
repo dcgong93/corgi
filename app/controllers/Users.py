@@ -26,6 +26,7 @@ class Users(Controller):
         return self.load_view('index.html')
 
     def dashboard_control(self):
+        print session['id']
         return self.load_view('dashboard.html')
 
     def register(self):
@@ -63,7 +64,9 @@ class Users(Controller):
         userlogin = self.models['User'].login_user(info)
         if userlogin:
             session['message'] = 'Successfully logged in!'
-            session['name'] = userlogin
+            session['name'] = userlogin[0]['first_name']
+            session['id'] = userlogin[0]['id']
+
             return redirect('/profile')
 
         elif not userlogin:
@@ -74,6 +77,26 @@ class Users(Controller):
     def logout(self):
         session.clear()
         return redirect('/')
+
+
+    def add_message_control(self):
+        message_info = {
+            'name': request.form['name'],
+            'location': request.form['location'],
+            'date': request.form['date'],
+            'time': request.form['time'],
+            'headline': request.form['headline'],
+            'message': request.form['message'],
+            'host_id': session['id']
+           
+        }
+
+        self.models['User'].add_message_model(message_info)
+        return self.load_view('dashboard.html')
+
+
+
+
 
 
 

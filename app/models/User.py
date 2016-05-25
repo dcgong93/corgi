@@ -61,9 +61,66 @@ class User(Model):
         
         if user:
             name = user[0]['first_name']
+            id = user[0]['id']
             if self.bcrypt.check_password_hash(user[0]['pw_hash'], password):
-                return name
+                return user 
         return False
+
+    def user(self):
+        query = "SELECT * FROM users WHERE id = :id"
+        data = {
+            'id': id
+        }
+
+        current_user = self.db.query_db(query, data)
+        return current_user
+
+
+    def add_message_model(self, message_info):
+        query = "INSERT INTO events (name, date, location, description, host_id) VALUES (:name, :date, :location, :description, :host_id)"
+        data = {
+            'name': message_info['headline'],
+            'date': message_info['date'],
+            'location':message_info['location'],
+            'description': message_info['message'],
+            'host_id': message_info['host_id']
+
+        }
+
+        return self.db.query_db(query, data)
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
