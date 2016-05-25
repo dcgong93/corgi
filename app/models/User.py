@@ -58,8 +58,9 @@ class User(Model):
 
         if user:
             name = user[0]['first_name']
+            id = user[0]['id']
             if self.bcrypt.check_password_hash(user[0]['pw_hash'], password):
-                return name
+                return {'name':name, 'id':id}
         return False
 
     def get_user_id(self,id):
@@ -78,3 +79,16 @@ class User(Model):
         get_all = "SELECT * FROM users AS users2 WHERE users2.id NOT IN (SELECT user_id FROM friendships WHERE id=:id)"
         data = {'id':id}
         return self.db.query_db(get_all, data)
+
+    def add_event2(self,edata):
+        query = 'INSERT into events (name, date, location, description, max, host_id) values(:name, :date, :location, :description, :max, :host_id)'
+        data = {
+            "name" : edata['name'],
+            "date" : edata['date'],
+            "location" : edata['location'],
+            'description': edata['description'],
+            'max': edata['max'],
+            'host_id': edata['host_id']
+        }
+        self.db.query_db(query, data)
+        return True

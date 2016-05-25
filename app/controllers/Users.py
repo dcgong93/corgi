@@ -4,25 +4,11 @@ class Users(Controller):
     def __init__(self, action):
         super(Users, self).__init__(action)
 
-        """
-            This is an example of loading a model.
-            Every controller has access to the load_model method.
-        """
         self.load_model('User')
         self.db = self._app.db
 
     def index(self):
-        """
-        A loaded model is accessible through the models attribute
-        self.models['WelcomeModel'].get_users()
 
-        self.models['WelcomeModel'].add_message()
-        # messages = self.models['WelcomeModel'].grab_messages()
-        # user = self.models['WelcomeModel'].get_user()
-        # to pass information on to a view it's the same as it was with Flask
-
-        # return self.load_view('index.html', messages=messages, user=user)
-        """
         return self.load_view('index.html')
 
     def dashboard_control(self):
@@ -64,6 +50,7 @@ class Users(Controller):
         if userlogin:
             session['message'] = 'Successfully logged in!'
             session['name'] = userlogin
+            session['id'] = userlogin['id']
             return redirect('/profile')
 
         elif not userlogin:
@@ -81,3 +68,19 @@ class Users(Controller):
         friends = self.models['User'].show_friends(id)
         other_users=self.models['User'].get_other_users(id)
         return self.load_view('users_list.html', user=user[0], friends=friends, other_users=other_users)
+
+    def add_event(self):
+        return self.load_view('new_event.html')
+
+    def add_event2(self):
+        edata = {
+            'name' : request.form['event_name'],
+            'date' : request.form['event_date'],
+            'location' : request.form['event_location'],
+            'description': request.form['event_description'],
+            'max': request.form['max_people'],
+            'host_id': session['id']
+        }
+        self.models['User'].add_event2(edata)
+
+        return redirect('/dashboard')
