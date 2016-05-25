@@ -48,20 +48,24 @@
 		<div class="container"> <!-- Beginning of container -->
 			<div class="row">
 				<div id= "message_background" class="col-md-8">
-
+					{% for message in append_message %}
 					<div class="row">
 						<div id= "message_board" class="col-md-6 col-md-offset-3">
-						 	<div class="row">
+
+						 	<div class="row white_color">
 						      <div class="col-xs-8 col-sm-4">
 						        <img src="http://pokeapi.co/media/img/1.png" alt="Pokemon" class="img-circle">
+						        <p>{{message['first_name']}} {{message['last_name']}}</p>
 						      </div>
 						      <div class="col-xs-4 col-sm-8">
-						        <h2>Meet up at Central Park!</h2>
-						        <p>Cmon by to Santa Clara Central Park located in Santa Clara. Bring your dog! Corgi only.</p>
+						        <h2>{{message['Headline']}}</h2>
+						        <p>{{message['Description']}}</p>
 						      </div>
 						    </div>
 						</div>
+
 					</div>
+					{% endfor %}
 				</div>
 
 				<div class="col-md-4">

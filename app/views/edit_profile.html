@@ -54,44 +54,5 @@
        </div><!-- /.container-fluid -->
      </nav>
      <!-- END OF NAV BAR -->
-	<div id="profile_bar" class="row">
-		<div id="person_pf" class="col-sm-3 col-sm-offset-1 text-center">
-			<div id="profile_info"><img src="http://zblogged.com/wp-content/uploads/2015/11/5.png" height="200px" width="200px">
-			<h1>{{pf_info.first_name}} {{pf_info.last_name}}</h1>
-			</div>
-		</div>
-		<div id="rating" class="col-sm-4 text-center">
-			<h4>100% of the people recommended Tom and Tommy.</h4>
-		</div>
-		<div id="dog_pf" class="col-sm-3 text-center">
-			<div id="dog_info"><img src="http://r.ddmcdn.com/s_f/o_1/cx_633/cy_0/cw_1725/ch_1725/w_720/APL/uploads/2014/11/too-cute-doggone-it-video-playlist.jpg" height="200px" width="200px"><h3>{{Tommy}}</h3><h4>Type, Age</h4>
-			</div>
-		</div>
-	</div>
-	<div id="main_content" class="row">
-		  <div id="hosting" class="col-sm-5 col-sm-offset-2">
-          <h2>Events I'm hosting</h2>
-          {% for event in events_hosting: %}
-            <div>
-              <h3><a href="/event_description/{{event['id']}}">{{event['name']}}</a></h3>
-              <h5>{{ event['location'] }} {{ event['date'] }}</h5>
-              <p>{{event['description']}}</p>
-            </div><br><br><br>
-          {% endfor %}
-      </div>
-
-      <div id="attending" class="col-sm-5">
-          <h2>Events I'm attending</h2>
-
-          {% for event in events_attending: %}
-            <div>
-              <h3><a href="/event_description/{{event['id']}}">{{event['name']}}</a></h3>
-              <h5>{{ event['location'] }} {{ event['date'] }}</h5>
-              <p>{{event['description']}}</p>
-            </div><br><br><br>
-          {% endfor %}
-
-      </div>
-	</div>
 </body>
 </html>

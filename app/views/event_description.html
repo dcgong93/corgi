@@ -52,8 +52,7 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                   <li><a href="/dashboard/"><u>Home</u></a></li>
-                  <li><a href="/users/edit/"><u>Users</u></a></li>
-                  <li><a href="/users/edit/"><u>My Events</u></a></li>
+                  <li><a href="/users"><u>Users</u></a></li>
                 </ul>
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
@@ -64,8 +63,7 @@
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Edit Profile</a></li>
+                    <li><a href="/profile/{{session['id']}}">Profile</a></li>
                     <li><a href="/logout">Logout</a></li>
                   </ul>
                 </div>
@@ -139,7 +137,7 @@
           {% endfor %}
         </div>
       </div>
-      <!-- END HEADER -->   
+      <!-- END HEADER -->
       <form action="/event/attend/{{event[0]['id']}}" method="POST">
         <input type="submit" value="Attend"></input>
       </form>

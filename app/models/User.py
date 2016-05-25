@@ -91,6 +91,11 @@ class User(Model):
 
         return self.db.query_db(query, data)
 
+    def append_message_model(self):
+        query = "SELECT users.first_name, users.last_name, events.id as id, events.name as Headline, events.description as Description FROM users JOIN events on users.id = events.host_id ORDER BY id desc"
+        append_message = self.db.query_db(query)
+        return append_message
+
 
 
     def get_user_id(self,id):
@@ -106,7 +111,7 @@ class User(Model):
         return self.db.query_db(join,data)
 
     def get_other_users(self,id):
-        get_all = "SELECT * FROM users AS users2 WHERE users2.id NOT IN (SELECT friend_id FROM friendships WHERE id=:id) AND users2.id != :id"
+        get_all = "SELECT * FROM users WHERE users.id NOT IN (SELECT friend_id FROM friendships WHERE user_id = :id) AND users.id != :id"
         data = {'id':id}
         return self.db.query_db(get_all, data)
 
@@ -178,3 +183,11 @@ class User(Model):
             'friend_id': info['friend_id']
         }
         return self.db.query_db(query,data)
+
+    def remove_friend_now(self,info):
+        query = "DELETE FROM friendships WHERE user_id = :user_id AND friend_id = :friend_id"
+        data = {
+            'user_id': info['user_id'],
+            'friend_id':info['friend_id']
+        }
+        return self.db.query_db(query, data)
