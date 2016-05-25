@@ -131,7 +131,14 @@ class User(Model):
         return self.db.query_db(query, data)
 
     def get_events_attending(self,id):
+<<<<<<< HEAD
+        query = 'SELECT * FROM users_attending LEFT JOIN events ON users_attending.event_id = events.id WHERE user_id = :id'
+        data = {
+            'id': id
+        }
+=======
 
+>>>>>>> ec1cb09555bd0e1475c68ee69d41b227c8746b02
         return self.db.query_db(query, data)
 
     def get_event(self,id):
@@ -148,7 +155,8 @@ class User(Model):
             "user_id": adata['user_id'],
             "event_id": adata['event_id']
         }
-        self.db.query_db(query, data)
+
+        response = self.db.query_db(query, data)
         return True
 
     def get_attending_people(self,id):
@@ -158,6 +166,16 @@ class User(Model):
         }
         return self.db.query_db(query, data)
 
+<<<<<<< HEAD
+    def stop_attend(self,adata):
+        query = 'DELETE FROM users_attending WHERE user_id = :user_id AND event_id = :event_id' 
+        data = {
+            'user_id' : adata['user_id'],
+            'event_id' : adata['event_id']
+        }
+        response = self.db.query_db(query, data)
+        return True
+=======
     def add_friend_now(self,info):
         query = "INSERT INTO friendships (user_id, friend_id) VALUES (:user_id, :friend_id)"
         data = {
@@ -165,3 +183,4 @@ class User(Model):
             'friend_id': info['friend_id']
         }
         return self.db.query_db(query,data)
+>>>>>>> ec1cb09555bd0e1475c68ee69d41b227c8746b02
