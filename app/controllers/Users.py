@@ -58,12 +58,14 @@ class Users(Controller):
             return redirect('/')
 
 
-    def profile(self, id):
+    def profile(self, url_id):
         id = session['id']
+        url_id=url_id
         user_info = self.models['User'].get_user_id(id)
-        events_hosting = self.models['User'].get_events_hosting(id)
+        pf_info = self.models['User'].get_user_id(url_id)
+        events_hosting = self.models['User'].get_events_hosting(url_id)
         events_attending = self.models['User'].get_events_attending(id)
-        return self.load_view('profile.html', events_hosting = events_hosting, events_attending = events_attending, user = user_info[0] )
+        return self.load_view('profile.html', events_hosting = events_hosting, events_attending = events_attending, user = user_info[0], pf_info=pf_info[0] )
 
 
 
@@ -110,7 +112,7 @@ class Users(Controller):
         }
         self.models['User'].add_event2(edata)
 
-        return redirect('/profile')
+        return redirect('/profile/'+ str(edata['host_id']))
 
     def event_description(self,id):
         id = id
@@ -135,7 +137,7 @@ class Users(Controller):
             'user_id': session['id']
         }
         stop_attend = self.models['User'].stop_attend(adata)
-        return redirect('/profile')
+        return redirect('/profile/' + str(adata['u']))
 
     def add_friend(self,id):
         id=id
@@ -145,3 +147,17 @@ class Users(Controller):
         }
         friend = self.models['User'].add_friend_now(info)
         return redirect ('/users')
+
+    def remove_friend(self,id):
+        id=id
+        info = {
+            'user_id': session['id'],
+            'friend_id':id
+        }
+        remove = self.models['User'].remove_friend_now(info)
+        return redirect ('/users')
+
+    def edit(self,id):
+        id=session['id']
+        user = self.models['User'].get_user_id(id)
+        return self.load_view('edit_profile.html', user=user[0])
