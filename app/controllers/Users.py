@@ -4,25 +4,11 @@ class Users(Controller):
     def __init__(self, action):
         super(Users, self).__init__(action)
 
-        """
-            This is an example of loading a model.
-            Every controller has access to the load_model method.
-        """
         self.load_model('User')
         self.db = self._app.db
 
     def index(self):
-        """
-        A loaded model is accessible through the models attribute
-        self.models['WelcomeModel'].get_users()
 
-        self.models['WelcomeModel'].add_message()
-        # messages = self.models['WelcomeModel'].grab_messages()
-        # user = self.models['WelcomeModel'].get_user()
-        # to pass information on to a view it's the same as it was with Flask
-
-        # return self.load_view('index.html', messages=messages, user=user)
-        """
         return self.load_view('index.html')
 
     def dashboard_control(self):
@@ -53,8 +39,7 @@ class Users(Controller):
                 flash(message, 'reg_errors')
             return redirect('/')
 
-    def profile(self):
-        return self.load_view('profile.html')
+
 
     def login(self):
         info = {
@@ -64,8 +49,8 @@ class Users(Controller):
         userlogin = self.models['User'].login_user(info)
         if userlogin:
             session['message'] = 'Successfully logged in!'
-            session['name'] = userlogin[0]['first_name']
-            session['id'] = userlogin[0]['id']
+            session['name'] = userlogin
+            session['id'] = userlogin['id']
 
             return redirect('/profile')
 
@@ -73,10 +58,17 @@ class Users(Controller):
             flash('Please enter a valid email and password', 'login_errors')
             return redirect('/')
 
+    def profile(self):
+        id = session['id']
+        events_hosting = self.models['User'].get_events_hosting(id)
+#        events_attending = self.models['User'].get_events_attending(id)
+        return self.load_view('profile.html', events_hosting = events_hosting)
+
 
     def logout(self):
         session.clear()
         return redirect('/')
+
 
 
     def add_message_control(self):
@@ -95,19 +87,34 @@ class Users(Controller):
         return self.load_view('dashboard.html')
 
 
+    def add_event(self):
+        return self.load_view('new_event.html')
 
+    def add_event2(self):
+        edata = {
+            'name' : request.form['event_name'],
+            'date' : request.form['event_date'],
+            'location' : request.form['event_location'],
+            'description': request.form['event_description'],
+            'max': request.form['max_people'],
+            'host_id': session['id']
+        }
+        self.models['User'].add_event2(edata)
 
+        return redirect('/profile')
 
+    def event_description(self,id):
+        id = id
+        event = self.models['User'].get_event(id)
+        attending = self.models['User'].get_attending_people(id)
+        return self.load_view('event_description.html', event = event, attending = attending)
 
-
-
-
-
-
-
-
-
-
-
-
+    def attend(self,id):
+        id = id
+        adata = {
+            'event_id': id,
+            'user_id':session['id']
+        }
+        attend = self.models['User'].attend(adata)
+        return redirect('/event_description/' + id)
 

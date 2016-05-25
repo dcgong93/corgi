@@ -41,7 +41,7 @@
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li><a href="#">Profile</a></li>
                     <li><a href="#">Edit Profile</a></li>
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="/logout">Logout</a></li>
                   </ul>
                 </div>
               </li>
@@ -55,8 +55,11 @@
       <!-- END OF NAV BAR -->
 
       <!-- HEADER -->
+
+      {{event}}
       <div class="row">
         <div class="col-sm-6">
+
           <h3>[EVENT TITLE]</h3>
         </div>
       </div>
@@ -65,7 +68,7 @@
           <h4>Host:</h4>
         </div>
         <div class="col-sm-8">
-          <h4>[Host names]</h4>
+          <h4>{{event[0]['host_id']}}</h4>
         </div>
       </div>
       <div id="event_name" class="row">
@@ -73,7 +76,7 @@
           <p>Date:</p>
         </div>
         <div class="col-sm-8">
-          <p>[Date of Event]</p>
+          <p>{{event[0]['date']}}</p>
         </div>
       </div>
       <div id="event_location" class="row">
@@ -81,7 +84,7 @@
           <p>Location:</p>
         </div>
         <div class="col-sm-8">
-          <p>[Location of Event]</>
+          <p>{{event[0]['location']}}</p>
         </div>
       </div>
       <div id="event_description" class="row">
@@ -89,7 +92,7 @@
           <p>Description:</p>
         </div>
         <div class="col-sm-8">
-          <p>[Description of Event]</>
+          <p>{{event[0]['description']}}</p>
         </div>
       </div>
       <div id="group_size" class="row">
@@ -97,18 +100,26 @@
           <p>group_size:</p>
         </div>
         <div class="col-sm-8">
-          <p>[group_size]</>
+          <p>{{event[0]['max']}}</p>
         </div>
       </div>
       <div id="attending" class="row">
         <div class="col-sm-4">
           <p>Attending:</p>
         </div>
-        <div class="col-sm-8">
-          <p>[List of people attending]</>
+        <div class="col-sm-8"><br>
+          {% for attendee in attending: %}
+          <p>{{attendee['first_name']}} {{attendee['last_name']}} {{attendee['email']}}, </p>
+          {% endfor %}
         </div>
       </div>
-      <!-- END HEADER -->
+      <!-- END HEADER -->   
+      <form action="/event/attend/{{event[0]['id']}}" method="POST">
+        <input type="submit" value="Attend"></input>
+      </form>
+      <form action="/event/stop_attend/{{event[0]['id']}}" method="POST">
+        <input type="submit" value="Stop Attending"></input>
+      </form>
 
 
 

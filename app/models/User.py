@@ -63,8 +63,9 @@ class User(Model):
             name = user[0]['first_name']
             id = user[0]['id']
             if self.bcrypt.check_password_hash(user[0]['pw_hash'], password):
-                return user 
-        return False
+                return {'name':name, 'id':id}
+        else:        
+            return False
 
     def user(self):
         query = "SELECT * FROM users WHERE id = :id"
@@ -89,38 +90,52 @@ class User(Model):
 
         return self.db.query_db(query, data)
 
+    
+
+
+    def add_event2(self,edata):
+        query = 'INSERT into events (name, date, location, description, max, host_id) values(:name, :date, :location, :description, :max, :host_id)'
+        data = {
+            "name" : edata['name'],
+            "date" : edata['date'],
+            "location" : edata['location'],
+            'description': edata['description'],
+            'max': edata['max'],
+            'host_id': edata['host_id']
+        }
+        self.db.query_db(query, data)
+        return True
+
+    def get_events_hosting(self,id):
+        query = 'SELECT * FROM events WHERE host_id = :id'
+        data = {
+            'id': id
+        }
+        return self.db.query_db(query, data)
+
+    def get_events_attending(self,id):
         
+        return self.db.query_db(query, data)
 
+    def get_event(self,id):
+        query = 'SELECT * FROM events WHERE id = :id'
+        data = {
+            'id': id
+        }
+        return self.db.query_db(query, data)
 
+    def attend(self,adata):
+        query = 'INSERT into users_attending (user_id, event_id) values(:user_id, :event_id)'
+        data = {
+            "user_id": adata['user_id'],
+            "event_id": adata['event_id']
+        }
+        self.db.query_db(query, data)
+        return True
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def get_attending_people(self,id):
+        query = "SELECT user_id, event_id, first_name, last_name, email FROM users_attending LEFT JOIN users on users_attending.user_id = users.id WHERE event_id = :id"
+        data = {
+            'id': id
+        }
+        return self.db.query_db(query, data)
