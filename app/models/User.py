@@ -76,7 +76,7 @@ class User(Model):
         return self.db.query_db(join,data)
 
     def get_other_users(self,id):
-        get_all = "SELECT * FROM users AS users2 WHERE users2.id NOT IN (SELECT user_id FROM friendships WHERE id=:id) AND users2.id != :id"
+        get_all = "SELECT * FROM users AS users2 WHERE users2.id NOT IN (SELECT friend_id FROM friendships WHERE id=:id) AND users2.id != :id"
         data = {'id':id}
         return self.db.query_db(get_all, data)
 

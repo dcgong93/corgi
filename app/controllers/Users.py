@@ -50,7 +50,7 @@ class Users(Controller):
             session['message'] = 'Successfully logged in!'
             session['name'] = userlogin
             session['id'] = userlogin['id']
-            return redirect('/profile')
+            return redirect('/profile/<id>')
 
         elif not userlogin:
             flash('Please enter a valid email and password', 'login_errors')
@@ -59,10 +59,10 @@ class Users(Controller):
     def profile(self, id):
         id = session['id']
         events_hosting = self.models['User'].get_events_hosting(id)
-        user_info = self.models['User'].get_user_id
+        user_info = self.models['User'].get_user_id(id)
         events_attending = self.models['User'].get_events_attending
 #        events_attending = self.models['User'].get_events_attending(id)
-        return self.load_view('profile.html', events_hosting = events_hosting, events_attending = events_attending)
+        return self.load_view('profile.html', events_hosting = events_hosting, events_attending = events_attending, users=user_info[0])
 
 
     def logout(self):
@@ -107,8 +107,14 @@ class Users(Controller):
         attend = self.models['User'].attend(adata)
         return redirect('/event_description/' + id)
 
-    def add_friend(self,friend_id):
+    def add_friend(self,id):
+        id=id
+        print "hello"
         info = {
-            'friend_id':friend_id,
+            'friend_id':id,
             'user_id': session['id']
         }
+        print info
+        friend = self.models['User'].add_friend_now(info)
+        print friend
+        return redirect ('/users')
