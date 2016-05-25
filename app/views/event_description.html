@@ -107,11 +107,19 @@
         <div class="col-sm-4">
           <p>Attending:</p>
         </div>
-        <div class="col-sm-8">
-          <p>[List of people attending]</>
+        <div class="col-sm-8"><br>
+          {% for attendee in attending: %}
+          <p>{{attendee['first_name']}} {{attendee['last_name']}} {{attendee['email']}}, </p>
+          {% endfor %}
         </div>
       </div>
-      <!-- END HEADER -->
+      <!-- END HEADER -->   
+      <form action="/event/attend/{{event[0]['id']}}" method="POST">
+        <input type="submit" value="Attend"></input>
+      </form>
+      <form action="/event/stop_attend/{{event[0]['id']}}" method="POST">
+        <input type="submit" value="Stop Attending"></input>
+      </form>
 
 
 

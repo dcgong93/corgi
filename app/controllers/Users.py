@@ -56,11 +56,13 @@ class Users(Controller):
             flash('Please enter a valid email and password', 'login_errors')
             return redirect('/')
 
-    def profile(self):
+    def profile(self, id):
         id = session['id']
         events_hosting = self.models['User'].get_events_hosting(id)
+        user_info = self.models['User'].get_user_id
+        events_attending = self.models['User'].get_events_attending
 #        events_attending = self.models['User'].get_events_attending(id)
-        return self.load_view('profile.html', events_hosting = events_hosting)
+        return self.load_view('profile.html', events_hosting = events_hosting, events_attending = events_attending)
 
 
     def logout(self):
@@ -93,6 +95,20 @@ class Users(Controller):
     def event_description(self,id):
         id = id
         event = self.models['User'].get_event(id)
-        return self.load_view('event_description.html', event = event)
+        attending = self.models['User'].get_attending_people(id)
+        return self.load_view('event_description.html', event = event, attending = attending)
 
+    def attend(self,id):
+        id = id
+        adata = {
+            'event_id': id,
+            'user_id':session['id']
+        }
+        attend = self.models['User'].attend(adata)
+        return redirect('/event_description/' + id)
 
+    def add_friend(self,friend_id):
+        info = {
+            'friend_id':friend_id,
+            'user_id': session['id']
+        }

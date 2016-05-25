@@ -71,7 +71,7 @@ class User(Model):
         return self.db.query_db(get_id_query, data)
 
     def show_friends(self,id):
-        join = "SELECT * FROM users LEFT JOIN friendships ON users.id = friendships.user_id LEFT JOIN users AS users2 on users2.id = friendships.friend_id WHERE users.id = :id AND users.id != :id"
+        join = "SELECT * FROM users LEFT JOIN friendships ON users.id = friendships.user_id LEFT JOIN users AS users2 on users2.id = friendships.friend_id WHERE users.id = :id"
         data = {'id':id}
         return self.db.query_db(join,data)
 
@@ -110,3 +110,28 @@ class User(Model):
             'id': id
         }
         return self.db.query_db(query, data)
+
+
+    def attend(self,adata):
+        query = 'INSERT into users_attending (user_id, event_id) values(:user_id, :event_id)'
+        data = {
+            "user_id": adata['user_id'],
+            "event_id": adata['event_id']
+        }
+        self.db.query_db(query, data)
+        return True
+
+    def get_attending_people(self,id):
+        query = "SELECT user_id, event_id, first_name, last_name, email FROM users_attending LEFT JOIN users on users_attending.user_id = users.id WHERE event_id = :id"
+        data = {
+            'id': id
+        }
+        return self.db.query_db(query, data)
+
+    def add_friend_now(self,info):
+        query = "INSERT INTO friendships (user_id, friend_id) VALUES (:user_id, :friend_id)"
+        data = {
+            'user_id': info['user_id'],
+            'friend_id': info['friend_id']
+        }
+        return self.db.query_db(query,data)
