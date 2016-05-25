@@ -86,6 +86,14 @@ class Users(Controller):
     def event_description(self,id):
         id = id
         event = self.models['User'].get_event(id)
-        return self.load_view('event_description.html', event = event)
+        attending = self.models['User'].get_attending_people(id)
+        return self.load_view('event_description.html', event = event, attending = attending)
 
-
+    def attend(self,id):
+        id = id
+        adata = {
+            'event_id': id,
+            'user_id':session['id']
+        }
+        attend = self.models['User'].attend(adata)
+        return redirect('/event_description/' + id)

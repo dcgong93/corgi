@@ -94,3 +94,19 @@ class User(Model):
             'id': id
         }
         return self.db.query_db(query, data)
+
+    def attend(self,adata):
+        query = 'INSERT into users_attending (user_id, event_id) values(:user_id, :event_id)'
+        data = {
+            "user_id": adata['user_id'],
+            "event_id": adata['event_id']
+        }
+        self.db.query_db(query, data)
+        return True
+
+    def get_attending_people(self,id):
+        query = "SELECT user_id, event_id, first_name, last_name, email FROM users_attending LEFT JOIN users on users_attending.user_id = users.id WHERE event_id = :id"
+        data = {
+            'id': id
+        }
+        return self.db.query_db(query, data)
