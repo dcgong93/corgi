@@ -23,7 +23,9 @@ class Users(Controller):
              "email" : request.form['email'],
              "password" : request.form['password'],
              "pw_confirmation" : request.form['pw_confirm'],
-             "dob" : request.form['dob']
+             "dob" : request.form['dob'],
+             'name':request.form['name'],
+             'type':request.form['type']
         }
 
         create_status = self.models['User'].register(info)
@@ -32,7 +34,7 @@ class Users(Controller):
             session['id'] = create_status['user']['id']
             session['name'] = create_status['user']['first_name']
             session['message'] = 'Successfully registered!'
-
+            create_dog = self.models['User'].create_dog(info, session['id'])
             return redirect('/profile/' + str(session['id']))
         else:
             for message in create_status['errors']:
@@ -68,7 +70,7 @@ class Users(Controller):
         events_attending = self.models['User'].get_events_attending(id)
         messages = self.models['User'].get_messages(url_id)
         comments = self.models['User'].get_comments(url_id)
-        return self.load_view('profile.html', events_hosting = events_hosting, events_attending = events_attending, user = user_info[0], pf_info=pf_info[0], comments = comments, messages = messages, dog=dog[0])
+        return self.load_view('profile.html', events_hosting = events_hosting, events_attending = events_attending, user = user_info[0], pf_info=pf_info[0], comments = comments, messages = messages, dog=dog)
 
 
 

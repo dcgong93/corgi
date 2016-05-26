@@ -62,11 +62,10 @@
 		<!-- LIKE BUTTONS -->
 
 		<div id="rating" class="col-sm-4 text-center">
-<<<<<<< HEAD
 			<h4>100% of the people recommended {{pf_info.first_name}} and {{dog['name']}}.</h4>
 		</div>
 		<div id="dog_pf" class="col-sm-3 text-center">
-			<div id="dog_info"><img src="http://r.ddmcdn.com/s_f/o_1/cx_633/cy_0/cw_1725/ch_1725/w_720/APL/uploads/2014/11/too-cute-doggone-it-video-playlist.jpg" height="200px" width="200px"><h3>{{dog['name']}}</h3><h4>{{dog['type']}},{{dog['DOB']}}</h4>
+			<div id="dog_info"><img src="http://r.ddmcdn.com/s_f/o_1/cx_633/cy_0/cw_1725/ch_1725/w_720/APL/uploads/2014/11/too-cute-doggone-it-video-playlist.jpg" height="200px" width="200px"><h3>{{dog['name']}}</h3><h4>{{dog['type']}}</h4>
     </div>
     
       {% if user['id'] == pf_info['id']: %}
@@ -106,8 +105,6 @@
     {%endif%}
 
 			
-
-=======
 			<h4>100% of the people recommended {{pf_info.first_name}} and [dog].</h4><br />
 			<div id="likes" class="row">
 				<form name="ratings" action='/like/{{pf_info.id}}' method='post'>
@@ -134,13 +131,10 @@
 					{% endif %}
 				{% endif %}
 			</div>
->>>>>>> 29b5178a727d2182cf013fabf164d7a3754a311c
 		</div>
 
 	</div>
-<<<<<<< HEAD
 
-=======
 	<!-- USER INFO -->
 	<div id="information" class="row">
 		<div id="ppl" class="col-sm-6">
