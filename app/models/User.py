@@ -237,3 +237,25 @@ class User(Model):
     def get_comments(self,id):
         query = "SELECT users.id, first_name, last_name, comment, comments.created_at, comments.message_id FROM users JOIN comments ON users.id = comments.user_id ORDER BY comments.created_at"
         return self.db.query_db(query)
+
+
+    def edit_dog(self,ddata):
+        query = 'UPDATE dogs SET name=:name, type=:type, description=:description, DOB=:DOB, gender=:gender WHERE user_id = :user_id'
+        data = {
+            'name' : ddata['name'],
+            'type' : ddata['type'],
+            'description': ddata['description'],
+            'DOB': ddata['DOB'],
+            'gender': ddata['gender'],
+            'user_id': ddata['user_id']
+        }
+        self.db.query_db(query, data)
+        return True
+
+    def get_dog(self,id):
+        query = 'SELECT * FROM dogs WHERE id = :id'
+        data = {
+            'id': id
+        }
+        return self.db.query_db(query, data)
+

@@ -61,11 +61,12 @@ class Users(Controller):
         url_id = url_id
         user_info = self.models['User'].get_user_id(id)
         pf_info = self.models['User'].get_user_id(url_id)
+        dog = self.models['User'].get_dog(url_id)
         events_hosting = self.models['User'].get_events_hosting(url_id)
         events_attending = self.models['User'].get_events_attending(id)
         messages = self.models['User'].get_messages(url_id)
         comments = self.models['User'].get_comments(url_id)
-        return self.load_view('profile.html', events_hosting = events_hosting, events_attending = events_attending, user = user_info[0], pf_info=pf_info[0], comments = comments, messages = messages)
+        return self.load_view('profile.html', events_hosting = events_hosting, events_attending = events_attending, user = user_info[0], pf_info=pf_info[0], comments = comments, messages = messages, dog=dog[0])
 
 
 
@@ -205,3 +206,19 @@ class Users(Controller):
         print cdata
         self.models['User'].post_comment(cdata)
         return redirect('/profile/' + uid )
+
+
+    def edit_dog(self,uid):
+        uid = uid
+        ddata = {
+            'name' : request.form['name'],
+            'type' : request.form['type'],
+            'description': request.form['description'],
+            'DOB': request.form['DOB'],
+            'gender': request.form['gender'],
+            'user_id': uid
+        }
+        self.models['User'].edit_dog(ddata)
+
+        return redirect('/profile/' + uid )
+

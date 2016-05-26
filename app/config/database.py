@@ -13,7 +13,7 @@ class DevelopmentDBConfig(DBConfig):
 
     DB_DATABASE_NAME = 'corgi'
     DB_HOST = 'localhost'
-    DB_PORT = 8889
+    DB_PORT = 3306
     """ unix_socket is used for connecting with MAMP. Take this out if you aren't using MAMP """
     DB_OPTIONS = {
         'unix_socket': '/Applications/MAMP/tmp/mysql/mysql.sock'
