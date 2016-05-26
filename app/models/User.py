@@ -1,6 +1,9 @@
 from system.core.model import Model
 
 import re
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 
 class User(Model):
@@ -72,22 +75,12 @@ class User(Model):
 
 
         if user:
-
             name = user[0]['first_name']
             id = user[0]['id']
             if self.bcrypt.check_password_hash(user[0]['pw_hash'], password):
                 return {'name':name, 'id':id}
             else:
                 return False
-
-    # def user(self):
-    #     query = "SELECT * FROM users WHERE id = :id"
-    #     data = {
-    #         'id': id
-    #     }
-
-    #     current_user = self.db.query_db(query, data)
-    #     return current_user
 
 
     def add_message_model(self, message_info):
@@ -275,5 +268,17 @@ class User(Model):
         query = 'SELECT * FROM dogs WHERE user_id = :id'
         data = {
             'id': id
+        }
+        return self.db.query_db(query, data)
+
+    def edit_user(self,udata):
+        query = 'UPDATE users SET first_name=:first_name, last_name=:last_name, email=:email, DOB=:DOB, description=:description WHERE id = :id'
+        data = {
+            'id':udata['id'],
+            'first_name': udata['first_name'],
+            'last_name': udata['last_name'],
+            'email': udata['email'],
+            'DOB': udata['DOB'],
+            'description': udata['description'],
         }
         return self.db.query_db(query, data)

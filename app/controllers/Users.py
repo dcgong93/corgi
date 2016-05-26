@@ -8,14 +8,9 @@ class Users(Controller):
         self.db = self._app.db
 
     def index(self):
-
         return self.load_view('index.html')
 
-    def dashboard_control(self):
-        return self.load_view('dashboard.html')
-
     def register(self):
-        print 'hello'
         info = {
              "first_name" : request.form['first_name'],
              "last_name" : request.form['last_name'],
@@ -61,7 +56,7 @@ class Users(Controller):
 
     def profile(self, url_id):
         id = session['id']
-        url_id=url_id
+        url_id = url_id
         user_info = self.models['User'].get_user_id(id)
         pf_info = self.models['User'].get_user_id(url_id)
         dog = self.models['User'].get_dog(url_id)
@@ -166,20 +161,6 @@ class Users(Controller):
         remove = self.models['User'].remove_friend_now(info)
         return redirect ('/users')
 
-    def edit(self,id):
-        id=session['id']
-        pf_update = {
-            'id':id,
-            'first_name': request.form['first_name'],
-            'last_name': request.form['last_name'],
-            'email': request.form['email'],
-            'DOB': request.form['dob'],
-            'description': request.form['description'],
-        }
-        update = self.models['User'].update_user(pf_update)
-        user = self.models['User'].get_user_id(id)
-        return redirect('/profile/'+id, user=user[0], update=update)
-
     def like(self, url_id):
         info = {
             id:session['id'],
@@ -210,6 +191,19 @@ class Users(Controller):
         self.models['User'].post_comment(cdata)
         return redirect('/profile/' + uid )
 
+    def edit(self,id):
+        id=id
+        udata = {
+            'id':id,
+            'first_name': request.form['first_name'],
+            'last_name': request.form['last_name'],
+            'email': request.form['email'],
+            'DOB': request.form['dob'],
+            'description': request.form['description'],
+        }
+        result = self.models['User'].edit_user(udata)
+        print result
+        return redirect('/profile/'+ id)
 
     def edit_dog(self,uid):
         uid = uid

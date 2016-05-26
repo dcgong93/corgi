@@ -53,11 +53,11 @@
 
 						 	<div class="row white_color">
 						      <div class="col-xs-8 col-sm-4">
-						        <img src="http://pokeapi.co/media/img/1.png" alt="Pokemon" class="img-circle">
+							    <a href="/event_description/{{message['id']}}"><img src="http://pokeapi.co/media/img/1.png" alt="Pokemon" class="img-circle"></a>
 						        <p>{{message['first_name']}} {{message['last_name']}}</p>
 						      </div>
 						      <div class="col-xs-4 col-sm-8">
-						        <h2>{{message['Headline']}}</h2>
+						        <h2><a href="/event_description/{{message['id']}}">{{message['Headline']}}</a></h2>
 						        <p>{{message['Description']}}</p>
 						      </div>
 						    </div>
@@ -97,9 +97,15 @@
 							            <label for="date" class="control-label">Date:</label>
 							            <input type="date" name = "date" class="form-control" id="date">
 							          </div>
-							          <div class="form-group">
-							            <label for="time" class="control-label">Date:</label>
-							            <input type="time" name = "time" class="form-control" id="time">
+							          <div class="row">
+								          <div class="form-group col-xs-6 col-sm-4">
+								            <label for="time" class="control-label">Start Time:</label>
+								            <input type="time" name = "time" class="form-control" id="time">
+								          </div>
+								          <div class="form-group col-xs-6 col-sm-4"> 
+									          <label for="time" class="control-label">End Time:</label>
+									          <input type="time" name = "time" class="form-control" id="time">
+								          </div> 							          	
 							          </div>
 							          <div class="form-group">
 							            <label for="headline" class="control-label">Head Line:</label>
