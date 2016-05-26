@@ -10,10 +10,6 @@ class Users(Controller):
     def index(self):
         return self.load_view('index.html')
 
-    # def dashboard_control(self):
-    #     print session['id']
-    #     return self.load_view('dashboard.html')
-
     def register(self):
         info = {
              "first_name" : request.form['first_name'],
