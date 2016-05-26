@@ -16,7 +16,7 @@
   <script src='../static/js/jquery.iframe-transport.js' type='text/javascript'></script>
   <script src='../static/js/jquery.fileupload.js' type='text/javascript'></script>
   <script src='../static/js/jquery.cloudinary.js' type='text/javascript'></script>
-  
+
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 </head>
@@ -33,9 +33,56 @@
 
                  <li><a href="/dashboard"><u>Home</u></a></li>
                  <li><a href="/users"><u>Users</u></a></li>
+								 <li><a href="" data-toggle="modal" data-target="#add_event"><u>Add Event</u></a></li>
 
 								 <!-- ADD EVENT MODAL -->
-                 
+								 <div class="modal fade" id="add_event" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+	 							  <div class="modal-dialog" role="document">
+	 							    <div class="modal-content">
+	 							      <div class="modal-header">
+	 							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	 							        <h4 class="modal-title" id="exampleModalLabel">New Event</h4>
+	 							      </div>
+	 							      <div class="modal-body">
+	 							        <form action = "/post_message" method= "post">
+	 							          <div class="form-group">
+	 							            <label for="recipient-name" class="control-label">Posted by:</label>
+	 							            <input type="text" name = "name" class="form-control" id="recipient-name">
+	 							          </div>
+	 							          <div class="form-group">
+	 							            <label for="location" class="control-label">Location:</label>
+	 							            <input type="text" name = "location" class="form-control" id="location">
+	 							          </div>
+	 							          <div class="form-group">
+	 							            <label for="date" class="control-label">Date:</label>
+	 							            <input type="date" name = "date" class="form-control" id="date">
+	 							          </div>
+	 							          <div class="row">
+	 								          <div class="form-group col-xs-6 col-sm-4">
+	 								            <label for="time" class="control-label">Start Time:</label>
+	 								            <input type="time" name = "time" class="form-control" id="time">
+	 								          </div>
+	 								          <div class="form-group col-xs-6 col-sm-4">
+	 									          <label for="time" class="control-label">End Time:</label>
+	 									          <input type="time" name = "time" class="form-control" id="time">
+	 								          </div>
+	 							          </div>
+	 							          <div class="form-group">
+	 							            <label for="headline" class="control-label">Head Line:</label>
+	 							            <input type="text" name = "headline" class="form-control" id="headline">
+	 							          </div>
+	 							          <div class="form-group">
+	 							            <label for="message-text" class="control-label">Message:</label>
+	 							            <textarea class="form-control" name = "message" id="message-text"></textarea>
+	 							          </div>
+	 							          <div class="form-group">
+	 								          <input type="submit" value="submit">
+	 							          </div>
+	 							        </form>
+	 							      </div>
+	 							    </div>
+	 							  </div>
+	 							</div>
 								 <!-- END ADD EVENT MODAL -->
 
                </ul>

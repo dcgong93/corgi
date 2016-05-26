@@ -1,9 +1,7 @@
 from system.core.model import Model
 
 import re
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+
 
 
 class User(Model):
