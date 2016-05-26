@@ -45,9 +45,21 @@ class User(Model):
                 'dob': info['dob']
             }
             self.db.query_db(query, data)
+
             get_user_query = "SELECT * FROM users ORDER BY id DESC LIMIT 1"
             users = self.db.query_db(get_user_query)
             return { "status": True, "user": users[0] }
+
+    def create_dog(self,info,id):
+        id=id
+        query2 = 'INSERT INTO dogs (name, type, user_id) values (:name, :type, :user_id)'
+        data2 = {
+            'name' : info['name'],
+            'type':info['type'],
+            'user_id' : id
+        }
+        self.db.query_db(query2, data2)
+        return True
 
     def login_user(self, info):
 
