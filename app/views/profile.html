@@ -52,278 +52,252 @@
        </div><!-- /.container-fluid -->
      </nav>
      <!-- END OF NAV BAR -->
-	<div id="profile_bar" class="row">
-		<div id="person_pf" class="col-sm-4 text-center">
-			<div id="profile_info"><img src="http://zblogged.com/wp-content/uploads/2015/11/5.png" height="200px" width="200px">
-			<h2>{{pf_info.first_name}} {{pf_info.last_name}}</h2>
+		<!-- START PROFILE BAR -->
+		<div id="profile_bar" class="row">
+			<div id="person_pf" class="col-sm-4 text-center">
+				<div id="profile_info"><img src="http://zblogged.com/wp-content/uploads/2015/11/5.png" height="200px" width="200px">
+				<h2>{{pf_info.first_name}} {{pf_info.last_name}}</h2>
+				</div>
 			</div>
-		</div>
 
-		<!-- LIKE BUTTONS -->
+			<!-- LIKE BUTTONS -->
 
-		<div id="rating" class="col-sm-4 text-center">
-<<<<<<< HEAD
-			<h4>100% of the people recommended {{pf_info.first_name}} and {{dog['name']}}.</h4>
-		</div>
-		<div id="dog_pf" class="col-sm-3 text-center">
-			<div id="dog_info"><img src="http://r.ddmcdn.com/s_f/o_1/cx_633/cy_0/cw_1725/ch_1725/w_720/APL/uploads/2014/11/too-cute-doggone-it-video-playlist.jpg" height="200px" width="200px"><h3>{{dog['name']}}</h3><h4>{{dog['type']}},{{dog['DOB']}}</h4>
-    </div>
-    
-      {% if user['id'] == pf_info['id']: %}
-      <div class="container">
-      <!-- Trigger the modal with a button -->
-      <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Edit dog's info</button>
-
-      <!-- Modal -->
-      <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-        
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Edit dog's Info</h4>
-            </div>
-            <div class="modal-body">
-              <form action="/edit_dog/{{user.id}}" method="POST">
-                  Name:<input type="text" name="name"></input><br>
-                  Type:<input type="text" name="type"></input><br>
-                  Description:<input type="text" name="description"></input><br>
-                  Date of Birth:<input type="text" name="DOB"></input><br>
-                  Gender:<input type="text" name="gender"></input><br>
-                  <input type="submit" value="Edit"></input>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-      
-    </div> <!-- end of popup content-->
-    {%endif%}
-
-			
-
-=======
-			<h4>100% of the people recommended {{pf_info.first_name}} and [dog].</h4><br />
-			<div id="likes" class="row">
-				<form name="ratings" action='/like/{{pf_info.id}}' method='post'>
-				    <input type="button" class="btn btn-info" name="like" value="Like">
-				    <input type="button" class="btn btn-warning" name="dislike" value="Dislike">
-				</form>
+			<!-- start rating -->
+			<div id="rating" class="col-sm-4 text-center">
+				<h4>100% of the people recommended {{pf_info.first_name}}.</h4><br />
+				<div id="likes" class="row">
+					<form name="ratings" action='/like/{{pf_info.id}}' method='post'>
+							<input type="button" class="btn btn-info" name="like" value="Like">
+							<input type="button" class="btn btn-warning" name="dislike" value="Dislike">
+					</form>
+				</div>
 			</div>
-		</div>
+			<!-- END RATING -->
 
-		<!-- END LIKE BUTTONS -->
-
-		<div id="dog_pf" class="col-sm-4 text-center">
-			<div id="dog_info"><img src="http://r.ddmcdn.com/s_f/o_1/cx_633/cy_0/cw_1725/ch_1725/w_720/APL/uploads/2014/11/too-cute-doggone-it-video-playlist.jpg" height="200px" width="200px">
-				{% if dog_info %}
-				<h2>{dog_info.name}</h2>
-				{% endif %}
-				{% if session['id'] == pf_info.id %}
-					{% if not dog_info %}
-					<h4>Add Your Dog Information!</h4>
+			<div id="dog_pf" class="col-sm-4 text-center">
+				<div id="dog_info">
+					<img src="http://r.ddmcdn.com/s_f/o_1/cx_633/cy_0/cw_1725/ch_1725/w_720/APL/uploads/2014/11/too-cute-doggone-it-video-playlist.jpg" height="200px" width="200px">
+					{% if dog %}
+					<h3>{{dog['name']}}</h3>
 					{% endif %}
-				{% else %}
-					{% if not dog_info %}
-					<h4>No Dog Information</h4>
-					{% endif %}
-				{% endif %}
+	    	</div>
 			</div>
->>>>>>> 29b5178a727d2182cf013fabf164d7a3754a311c
 		</div>
 
-	</div>
-<<<<<<< HEAD
+			<!-- END DOG PIC -->
 
-=======
-	<!-- USER INFO -->
-	<div id="information" class="row">
-		<div id="ppl" class="col-sm-6">
-			<div class="row">
-				<div class="col-sm-3 col-sm-offset-1">
-					<p>Email:</p>
+		<!-- USER and DOG INFO -->
+		<div id="information" class="row">
+			<div id="ppl" class="col-sm-6">
+				<div class="row">
+					<div class="col-sm-3 col-sm-offset-1">
+						<p>Email:</p>
+					</div>
+					<div class="col-sm-7 text-left">
+						<p>{{pf_info.email}}</p>
+					</div>
 				</div>
-				<div class="col-sm-7 text-left">
-					<p>{{pf_info.email}}</p>
+				<div class="row">
+					<div class="col-sm-3 col-sm-offset-1">
+						<p>Date of Birth:</p>
+					</div>
+					<div class="col-sm-7 text-left">
+						<p>{{pf_info.DOB}}</p>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-3 col-sm-offset-1">
-					<p>Date of Birth:</p>
+				<div class="row">
+					<div class="col-sm-3 col-sm-offset-1">
+						<p>About Me:</p>
+					</div>
+					<div class="col-sm-7 text-left">
+						<p>{{pf_info.description}}</p>
+					</div>
 				</div>
-				<div class="col-sm-7 text-left">
-					<p>{{pf_info.DOB}}</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-3 col-sm-offset-1">
-					<p>About Me:</p>
-				</div>
-				<div class="col-sm-7 text-left">
-					<p>{{pf_info.description}}</p>
-				</div>
-			</div>
-			<div class="row">
-				<!-- BEGINNING OF MODAL -->
-				<div class="col-sm-4 col-sm-offset-2 text-center">
-					{% if session['id'] == pf_info.id %}
-						<button type="button" class="btn btn-success" data-toggle="modal" name="edit_profile" data-target="#profile_edit">Edit Profile</button>
+				<div class="row">
+					<!-- BEGINNING OF MODAL -->
+					<div class="col-sm-4 col-sm-offset-2 text-center">
+						{% if session['id'] == pf_info.id %}
+							<button type="button" class="btn btn-success" data-toggle="modal" name="edit_profile" data-target="#profile_edit">Edit Profile</button>
 
-						<div class="modal fade" id="profile_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-						  <div class="modal-dialog" role="document">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						        <h4 class="modal-title" id="exampleModalLabel">Edit Profile</h4>
-						      </div>
-						      <div class="modal-body">
-						        <form action="/profile/edit/{session['id']}">
-											<div class="form-group">
-						            <label for="first_name" class="control-label">First Name:</label>
-						            <input type="text" class="form-control" id="first_name" name="first_name" value={{user.first_name}}>
-						          </div>
-											<div class="form-group">
-						            <label for="last_name" class="control-label">Last Name:</label>
-						            <input type="text" class="form-control" id="last_name" name="last_name" value={{user.last_name}}>
-						          </div>
-						          <div class="form-group">
-						            <label for="email" class="control-label">Email:</label>
-						            <input type="email" class="form-control" id="email" name="email" value={{user.email}}>
-						          </div>
-											<div class="row">
-												<div class="form-group col-sm-4 col-sm-offset-4">
-							            <label for="dob" class="control-label">Date of Birth:</label>
-							            <input type="date" class="form-control" id="dob" name="dob" value={{user.DOB}}>
-							          </div>
-											</div>
-											<div class="row">
+							<div class="modal fade" id="profile_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+							  <div class="modal-dialog" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							        <h4 class="modal-title" id="exampleModalLabel">Edit Profile</h4>
+							      </div>
+							      <div class="modal-body">
+							        <form action="/profile/edit/{session['id']}">
 												<div class="form-group">
-							            <label for="description" class="control-label">Description:</label>
-							            <textarea class="form-control" id="description" name="description" value={{user.description}}></textarea>
+							            <label for="first_name" class="control-label">First Name:</label>
+							            <input type="text" class="form-control" id="first_name" name="first_name" value={{user.first_name}}>
 							          </div>
-											</div>
-											<div class="modal-footer">
-								        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-								        <input type="submit" class="btn btn-primary" name="update" value="Update Profile">
-								      </div>
-						        </form>
-						      </div>
-						    </div>
-						  </div>
-						</div>
-					{% endif %}
+												<div class="form-group">
+							            <label for="last_name" class="control-label">Last Name:</label>
+							            <input type="text" class="form-control" id="last_name" name="last_name" value={{user.last_name}}>
+							          </div>
+							          <div class="form-group">
+							            <label for="email" class="control-label">Email:</label>
+							            <input type="email" class="form-control" id="email" name="email" value={{user.email}}>
+							          </div>
+												<div class="row">
+													<div class="form-group col-sm-4 col-sm-offset-4">
+								            <label for="dob" class="control-label">Date of Birth:</label>
+								            <input type="date" class="form-control" id="dob" name="dob" value={{user.DOB}}>
+								          </div>
+												</div>
+												<div class="row">
+													<div class="form-group">
+								            <label for="description" class="control-label">Description:</label>
+								            <textarea class="form-control" id="description" name="description" value={{user.description}}></textarea>
+								          </div>
+												</div>
+												<div class="modal-footer">
+									        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									        <input type="submit" class="btn btn-primary" name="update" value="Update Profile">
+									      </div>
+							        </form>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+						{% endif %}
+					</div>
+					<!-- END OF MODAL -->
 				</div>
-				<!-- END OF MODAL -->
+			</div>
+			<!-- END PPL INFO -->
+			<!-- START DOG INFO -->
+			{% if dog %}
+			<div id="doggy" class="col-sm-6">
+				<div class="row">
+					<div class="col-sm-3 col-sm-offset-1">
+						<p>Type:</p>
+					</div>
+					<div class="col-sm-7 text-left">
+						<p>{{dog.type}}</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3 col-sm-offset-1">
+						<p>Date of Birth:</p>
+					</div>
+					<div class="col-sm-7 text-left">
+						<p>{{dog.DOB}}</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3 col-sm-offset-1">
+						<p>Gender:</p>
+					</div>
+					<div class="col-sm-7 text-left">
+						<p>{{dog.gender}}</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3 col-sm-offset-1">
+						<p>About Me:</p>
+					</div>
+					<div class="col-sm-7 text-left">
+						<p>{{dog.description}}</p>
+					</div>
+				</div>
+				<div class="row">
+				{% endif %}
+					<div class="col-sm-4 col-sm-offset-2 text-center">
+						{% if session['id'] == pf_info.id %}
+						<!-- Trigger the modal with a button -->
+			      <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Edit dog's info</button>
+
+			      <!-- Modal -->
+			      <div class="modal fade" id="myModal" role="dialog">
+			        <div class="modal-dialog">
+
+			          <!-- Modal content-->
+			          <div class="modal-content">
+			            <div class="modal-header">
+			              <button type="button" class="close" data-dismiss="modal">&times;</button>
+			              <h4 class="modal-title">Edit dog's Info</h4>
+			            </div>
+			            <div class="modal-body">
+			              <form action="/edit_dog/{{user.id}}" method="POST">
+			                  Name:<input type="text" name="name"></input><br>
+			                  Type:<input type="text" name="type"></input><br>
+			                  Description:<input type="text" name="description"></input><br>
+			                  Date of Birth:<input type="text" name="DOB"></input><br>
+			                  Gender:<input type="text" name="gender"></input><br>
+			                  <input type="submit" value="Edit"></input>
+			              </form>
+			            </div>
+			            <div class="modal-footer">
+			              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			            </div>
+			          </div>
+
+			        </div>
+			      </div>
+
+						{% endif %}
+					</div>
+				</div>
 			</div>
 		</div>
-		<!-- END PPL INFO -->
-		<!-- START DOG INFO -->
-		{% if dog_info %}
-		<div id="doggy" class="col-sm-6">
-			<div class="row">
-				<div class="col-sm-3 col-sm-offset-1">
-					<p>Type:</p>
-				</div>
-				<div class="col-sm-7 text-left">
-					<p>{{dog_info.type}}</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-3 col-sm-offset-1">
-					<p>Date of Birth:</p>
-				</div>
-				<div class="col-sm-7 text-left">
-					<p>{{dog_info.DOB}}</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-3 col-sm-offset-1">
-					<p>Gender:</p>
-				</div>
-				<div class="col-sm-7 text-left">
-					<p>{{dog_info.gender}}</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-3 col-sm-offset-1">
-					<p>About Me:</p>
-				</div>
-				<div class="col-sm-7 text-left">
-					<p>{{dog_info.description}}</p>
-				</div>
-			</div>
-			<div class="row">
-			{% endif %}
-				<div class="col-sm-4 col-sm-offset-2 text-center">
-					{% if session['id'] == pf_info.id %}
-						<form action="/dog/edit/{session['id']}" method='post'>
-							<input type="submit" class="btn btn-success" name="edit" value="Edit Dog Profile" />
-						</form>
-					{% endif %}
-				</div>
-			</div>
+			<!-- END DOG INFO -->
+		<!-- END USER INFO -->
+
+		<!-- START EVENTS -->
+		<div id="main_content" class="row">
+			  <div id="hosting" class="col-sm-5 col-sm-offset-2">
+	          <h2>Events I'm hosting</h2>
+	          {% for event in events_hosting: %}
+	            <div>
+	              <h3><a href="/event_description/{{event['id']}}">{{event['name']}}</a></h3>
+	              <h5>{{ event['location'] }} {{ event['date'] }}</h5>
+	              <p>{{event['description']}}</p>
+	            </div><br><br>
+	          {% endfor %}
+	      </div>
+
+	      <div id="attending" class="col-sm-5">
+	          <h2>Events I'm attending</h2>
+
+	          {% for event in events_attending: %}
+	            <div>
+	              <h3><a href="/event_description/{{event['id']}}">{{event['name']}}</a></h3>
+	              <h5>{{ event['location'] }} {{ event['date'] }}</h5>
+	              <p>{{event['description']}}</p>
+	            </div><br><br>
+	          {% endfor %}
+
+	      </div>
+
+	      <div>Leave a message to {{pf_info.first_name}}</div>
+	          <form action="post_message/{{pf_info.id}}" method="POST">
+	              <textarea cols="60" rows="8" name="message"></textarea>
+	              <input type="submit" value="Post"></input>
+	          </form>
+	      </div>
+	  {% for message in messages: %}
+
+	    <div style="margin-left: 40px;">
+	      <h3>{{ message['first_name'] }}{{ message['last_name'] }} wrote:</h3><h4>{{message['created_at']}}</h4>
+	      <p style="background-color: #EAE6DE; width: 60%; margin: 20px; padding: 20px;">{{message['message']}}</p>
+	        {% for comment in comments: %}
+
+	          {% if comment['message_id'] == message['message_id'] %}
+	          <div style="background-color: #F6F5F1; width: 40%; margin-left: 100px;">
+	          <h4>{{ comment['first_name'] }}{{ comment['last_name'] }} wrote:</h4><h6>{{comment['created_at']}}</h6>
+	          <p>{{comment['comment']}}</p>
+	          </div>
+	          {% endif %}
+	        {% endfor %}
+	        <form action="post_comment/{{message['message_id']}}/{{pf_info.id}}" method="POST" style="margin-left: 600px; display: block">
+	          <textarea rows="2" cols="30" name="comment"></textarea>
+	          <input type="submit" value="Comment"></input>
+	        </form>
+
+	    </div>
 		</div>
-	</div>
-		<!-- END DOG INFO -->
-	<!-- END USER INFO -->
->>>>>>> 29b5178a727d2182cf013fabf164d7a3754a311c
-	<div id="main_content" class="row">
-		  <div id="hosting" class="col-sm-5 col-sm-offset-2">
-          <h2>Events I'm hosting</h2>
-          {% for event in events_hosting: %}
-            <div>
-              <h3><a href="/event_description/{{event['id']}}">{{event['name']}}</a></h3>
-              <h5>{{ event['location'] }} {{ event['date'] }}</h5>
-              <p>{{event['description']}}</p>
-            </div><br><br>
-          {% endfor %}
-      </div>
-
-      <div id="attending" class="col-sm-5">
-          <h2>Events I'm attending</h2>
-
-          {% for event in events_attending: %}
-            <div>
-              <h3><a href="/event_description/{{event['id']}}">{{event['name']}}</a></h3>
-              <h5>{{ event['location'] }} {{ event['date'] }}</h5>
-              <p>{{event['description']}}</p>
-            </div><br><br>
-          {% endfor %}
-
-      </div>
-
-      <div>Leave a message to {{pf_info.first_name}}</div>
-          <form action="post_message/{{pf_info.id}}" method="POST">
-              <textarea cols="60" rows="8" name="message"></textarea>
-              <input type="submit" value="Post"></input>
-          </form>
-      </div>
-      {% for message in messages: %}
-
-    <div style="margin-left: 40px;">
-      <h3>{{ message['first_name'] }}{{ message['last_name'] }} wrote:</h3><h4>{{message['created_at']}}</h4>
-      <p style="background-color: #EAE6DE; width: 60%; margin: 20px; padding: 20px;">{{message['message']}}</p>
-        {% for comment in comments: %}
-
-          {% if comment['message_id'] == message['message_id'] %}
-          <div style="background-color: #F6F5F1; width: 40%; margin-left: 100px;">
-          <h4>{{ comment['first_name'] }}{{ comment['last_name'] }} wrote:</h4><h6>{{comment['created_at']}}</h6>
-          <p>{{comment['comment']}}</p>
-          </div>
-          {% endif %}
-        {% endfor %}
-        <form action="post_comment/{{message['message_id']}}/{{pf_info.id}}" method="POST" style="margin-left: 600px; display: block">
-          <textarea rows="2" cols="30" name="comment"></textarea>
-          <input type="submit" value="Comment"></input>
-        </form>
-
-    </div>
-
-  {% endfor %}
+  	{% endfor %}
 </body>
 </html>

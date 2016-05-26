@@ -260,9 +260,8 @@ class User(Model):
         return True
 
     def get_dog(self,id):
-        query = 'SELECT * FROM dogs WHERE id = :id'
+        query = 'SELECT * FROM dogs WHERE user_id = :id'
         data = {
             'id': id
         }
         return self.db.query_db(query, data)
-
