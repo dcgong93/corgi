@@ -277,3 +277,15 @@ class User(Model):
             'id': id
         }
         return self.db.query_db(query, data)
+
+    def edit_user(self,udata):
+        query = 'UPDATE users SET first_name=:first_name, last_name=:last_name, email=:email, DOB=:DOB, description=:description WHERE id = :id'
+        data = {
+            'id':udata['id'],
+            'first_name': udata['first_name'],
+            'last_name': udata['last_name'],
+            'email': udata['email'],
+            'DOB': udata['DOB'],
+            'description': udata['description'],
+        }
+        return self.db.query_db(query, data)
