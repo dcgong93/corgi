@@ -16,3 +16,6 @@ routes['POST']['/event/stop_attend/<id>'] = 'Users#stop_attend'
 routes['/add_friend/<id>'] = 'Users#add_friend'
 routes['/remove_friend/<id>'] = 'Users#remove_friend'
 routes['/profile/edit/<id>'] = 'Users#edit'
+
+routes['POST']['/profile/post_message/<id>'] = 'Users#post_message'
+routes['POST']['/profile/post_comment/<mid>/<uid>'] = 'Users#post_comment'
