@@ -191,3 +191,24 @@ class User(Model):
             'friend_id':info['friend_id']
         }
         return self.db.query_db(query, data)
+
+    def liked(self, info):
+        user_query ="INSERT INTO likes_count (pf_id, liker_id) VALUES (:url_id, :id)"
+        add_query = "UPDATE likes_count SET likes = likes +1 WHERE pf_id = :url_id"
+        data = {
+            'url_id': info['url_id'],
+            'id': info['id']
+        }
+        return self.db.query_db(user_query, add_query, data)
+
+    def update_user(self, info):
+        update_query = "UPDATE users SET first_name = :first_name, last_name = :last_name, email = :email, DOB = :DOB, description = :description WHERE id = :id"
+        data = {
+            'first_name': info['first_name'],
+            'last_name': info['last_name'],
+            'email': info['email'],
+            'DOB': info['DOB'],
+            'description': info['description'],
+            'id': info['id']
+        }
+        return self.db.query_db(update_query, data)
