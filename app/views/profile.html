@@ -131,7 +131,7 @@
 							        <h4 class="modal-title" id="exampleModalLabel">Edit Profile</h4>
 							      </div>
 							      <div class="modal-body">
-							        <form action="/profile/edit/{session['id']}">
+							        <form action="/profile/edit/{{session['id']}}" method="POST">
 												<div class="form-group">
 							            <label for="first_name" class="control-label">First Name:</label>
 							            <input type="text" class="form-control" id="first_name" name="first_name" value={{user.first_name}}>
@@ -281,7 +281,7 @@
 
 	      </div>
 		<div class="row">
-			<div class="col-sm-10 col-sm-offset-1">
+			<div class="col-sm-10 col-sm-offset-1"><br><br><br>
 					<div>Leave a message to {{pf_info.first_name}}</div>
 		          <form action="post_message/{{pf_info.id}}" method="POST">
 		              <textarea cols="60" rows="8" name="message"></textarea>
