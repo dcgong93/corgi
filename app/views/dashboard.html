@@ -53,11 +53,11 @@
 
 						 	<div class="row white_color">
 						      <div class="col-xs-8 col-sm-4">
-						        <img src="http://pokeapi.co/media/img/1.png" alt="Pokemon" class="img-circle">
+							    <a href="/event_description/{{message['id']}}"><img src="http://pokeapi.co/media/img/1.png" alt="Pokemon" class="img-circle"></a>
 						        <p>{{message['first_name']}} {{message['last_name']}}</p>
 						      </div>
 						      <div class="col-xs-4 col-sm-8">
-						        <h2>{{message['Headline']}}</h2>
+						        <h2><a href="/event_description/{{message['id']}}">{{message['Headline']}}</a></h2>
 						        <p>{{message['Description']}}</p>
 						      </div>
 						    </div>

@@ -8,15 +8,13 @@ class Users(Controller):
         self.db = self._app.db
 
     def index(self):
-
         return self.load_view('index.html')
 
-    def dashboard_control(self):
-        print session['id']
-        return self.load_view('dashboard.html')
+    # def dashboard_control(self):
+    #     print session['id']
+    #     return self.load_view('dashboard.html')
 
     def register(self):
-        print 'hello'
         info = {
              "first_name" : request.form['first_name'],
              "last_name" : request.form['last_name'],
@@ -60,7 +58,7 @@ class Users(Controller):
 
     def profile(self, url_id):
         id = session['id']
-        url_id=url_id
+        url_id = url_id
         user_info = self.models['User'].get_user_id(id)
         pf_info = self.models['User'].get_user_id(url_id)
         events_hosting = self.models['User'].get_events_hosting(url_id)
