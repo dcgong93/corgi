@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.9, for osx10.9 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: corgi
+-- Host: localhost    Database: corgi
 -- ------------------------------------------------------
--- Server version	5.5.42
+-- Server version	5.5.41-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `comments`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `comments` text,
+  `comment` text,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `message_id` int(11) NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE `comments` (
   KEY `fk_comments_users1_idx` (`user_id`),
   CONSTRAINT `fk_comments_messages1` FOREIGN KEY (`message_id`) REFERENCES `messages` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_comments_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +43,7 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
+INSERT INTO `comments` VALUES (1,'yay','2016-05-26 10:36:28','2016-05-26 10:36:28',2,1),(2,'yay','2016-05-26 10:37:22','2016-05-26 10:37:22',2,1),(3,'hehe','2016-05-26 10:37:56','2016-05-26 10:37:56',1,1),(4,'he','2016-05-26 10:38:45','2016-05-26 10:38:45',1,1),(5,'ge','2016-05-26 10:43:08','2016-05-26 10:43:08',1,1),(6,'work\r\n','2016-05-26 10:44:37','2016-05-26 10:44:37',2,1),(7,'muajjaa','2016-05-26 10:44:54','2016-05-26 10:44:54',1,1),(8,'muajjaa','2016-05-26 10:44:54','2016-05-26 10:44:54',1,1);
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,7 +124,7 @@ CREATE TABLE `friendships` (
   PRIMARY KEY (`id`,`user_id`),
   KEY `fk_friendships_users1_idx` (`user_id`),
   CONSTRAINT `fk_friendships_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -132,6 +133,7 @@ CREATE TABLE `friendships` (
 
 LOCK TABLES `friendships` WRITE;
 /*!40000 ALTER TABLE `friendships` DISABLE KEYS */;
+INSERT INTO `friendships` VALUES (1,1,3);
 /*!40000 ALTER TABLE `friendships` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,10 +150,11 @@ CREATE TABLE `messages` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `user_id` int(11) NOT NULL,
+  `rec_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_messages_users1_idx` (`user_id`),
   CONSTRAINT `fk_messages_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,6 +163,7 @@ CREATE TABLE `messages` (
 
 LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
+INSERT INTO `messages` VALUES (1,'Hey mike, work!','2016-05-26 10:25:18','2016-05-26 10:25:18',1,3),(2,'hey mike','2016-05-26 10:29:14','2016-05-26 10:29:14',1,3);
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -181,7 +185,7 @@ CREATE TABLE `users` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -190,6 +194,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'Ana','Thomas','anathomasity@gmail.com','$2b$12$fbrE3xQL8YYCMXcumUpcx.9afPLzMi1Fa99QWCwMPISPU208nOfwG','1993-04-30',NULL,NULL,NULL),(3,'Mike','Thomas','mike@gmail.com','$2b$12$iXtEzmDt.f/OW44VR./rKek0.ygMgJFysfzTzb0cQMrqI./759Hv.','1998-05-12',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -206,8 +211,8 @@ CREATE TABLE `users_attending` (
   PRIMARY KEY (`user_id`,`event_id`),
   KEY `fk_users_has_events_events1_idx` (`event_id`),
   KEY `fk_users_has_events_users1_idx` (`user_id`),
-  CONSTRAINT `fk_users_has_events_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_users_has_events_events1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_users_has_events_events1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_users_has_events_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -229,4 +234,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-24 10:51:26
+-- Dump completed on 2016-05-26 10:46:36

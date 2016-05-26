@@ -65,7 +65,9 @@ class Users(Controller):
         pf_info = self.models['User'].get_user_id(url_id)
         events_hosting = self.models['User'].get_events_hosting(url_id)
         events_attending = self.models['User'].get_events_attending(id)
-        return self.load_view('profile.html', events_hosting = events_hosting, events_attending = events_attending, user = user_info[0], pf_info=pf_info[0] )
+        messages = self.models['User'].get_messages(url_id)
+        comments = self.models['User'].get_comments(url_id)
+        return self.load_view('profile.html', events_hosting = events_hosting, events_attending = events_attending, user = user_info[0], pf_info=pf_info[0], comments = comments, messages = messages)
 
 
 
@@ -142,7 +144,7 @@ class Users(Controller):
             'user_id': session['id']
         }
         stop_attend = self.models['User'].stop_attend(adata)
-        return redirect('/profile/' + str(adata['u']))
+        return redirect('/profile/' + str(adata['user_id']))
 
     def add_friend(self,id):
         id=id
@@ -183,3 +185,25 @@ class Users(Controller):
         }
         like = self.models['User'].liked(info)
         return redirect('/profile/'+ str(edata['host_id']))
+
+    def post_message(self,id):
+        id = id
+        mdata = {
+            'message' : request.form['message'],
+            'user_id' : session['id']
+        }
+        self.models['User'].post_message(id,mdata)
+        return redirect('/profile/' + id)
+
+    def post_comment(self,mid,uid):
+        msg_id = mid
+        uid = uid
+
+        cdata = {
+            'comment' : request.form['comment'],
+            'message_id' : msg_id,
+            'uid': session['id']
+        }
+        print cdata
+        self.models['User'].post_comment(cdata)
+        return redirect('/profile/' + uid )

@@ -245,6 +245,34 @@
           {% endfor %}
 
       </div>
-	</div>
+
+      <div>Leave a message to {{pf_info.first_name}}</div>
+          <form action="post_message/{{pf_info.id}}" method="POST">
+              <textarea cols="60" rows="8" name="message"></textarea>
+              <input type="submit" value="Post"></input>
+          </form>
+      </div>
+      {% for message in messages: %}
+
+    <div style="margin-left: 40px;">
+      <h3>{{ message['first_name'] }}{{ message['last_name'] }} wrote:</h3><h4>{{message['created_at']}}</h4>
+      <p style="background-color: #EAE6DE; width: 60%; margin: 20px; padding: 20px;">{{message['message']}}</p>
+        {% for comment in comments: %}
+
+          {% if comment['message_id'] == message['message_id'] %}
+          <div style="background-color: #F6F5F1; width: 40%; margin-left: 100px;">
+          <h4>{{ comment['first_name'] }}{{ comment['last_name'] }} wrote:</h4><h6>{{comment['created_at']}}</h6>
+          <p>{{comment['comment']}}</p>
+          </div>
+          {% endif %}
+        {% endfor %}
+        <form action="post_comment/{{message['message_id']}}/{{pf_info.id}}" method="POST" style="margin-left: 600px; display: block">
+          <textarea rows="2" cols="30" name="comment"></textarea>
+          <input type="submit" value="Comment"></input>
+        </form>
+
+    </div>
+
+  {% endfor %}
 </body>
 </html>

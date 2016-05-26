@@ -15,7 +15,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
     <script>
-      var marker;
 
       var map=new google.maps.Map(document.getElementById("map"),mapDiv);
 
@@ -27,31 +26,12 @@
         });
         mapTypeId:google.maps.MapTypeId.ROADMAP
       };
-      // function geolocate() {
-      //   if (navigator.geolocation) {
-      //     navigator.geolocation.getCurrentPosition(function(position) {
-      //       var geolocation = {
-      //         lat: position.coords.latitude,
-      //         lng: position.coords.longitude
-      //       };
-      //       var circle = new google.maps.Circle({
-      //         center: geolocation,
-      //         radius: position.coords.accuracy
-      //       });
-      //       autocomplete.setBounds(circle.getBounds());
-      //     });
-      //   }
-      //   else {
-      //     geolocation = new google.maps.LatLngBounds(
-      //       new google.maps.LatLng(37.7749, -122.4194)
-      //     );
-      //   }
-      // }
 
       var input = document.getElementById('pac-input');
-      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-      var autocomplete = new google.maps.places.Autocomplete(input);
+      autocomplete = new google.maps.places.Autocomplete(input);
+      var searchBox = new google.maps.places.SearchBox(input, {
+        bounds: defaultBounds
+      });
 
       var marker=new google.maps.Marker({
         position:myCenter,
