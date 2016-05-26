@@ -12,7 +12,6 @@ class Users(Controller):
         return self.load_view('index.html')
 
     def dashboard_control(self):
-        print session['id']
         return self.load_view('dashboard.html')
 
     def register(self):
