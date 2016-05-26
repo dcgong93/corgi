@@ -19,3 +19,4 @@ routes['/profile/edit/<id>'] = 'Users#edit'
 
 routes['POST']['/profile/post_message/<id>'] = 'Users#post_message'
 routes['POST']['/profile/post_comment/<mid>/<uid>'] = 'Users#post_comment'
+routes['POST']['/edit_dog/<uid>'] = 'Users#edit_dog'
