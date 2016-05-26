@@ -192,11 +192,32 @@ class User(Model):
         }
         return self.db.query_db(query, data)
 
+    def liked(self, info):
+        user_query ="INSERT INTO likes_count (pf_id, liker_id) VALUES (:url_id, :id)"
+        add_query = "UPDATE likes_count SET likes = likes +1 WHERE pf_id = :url_id"
+        data = {
+            'url_id': info['url_id'],
+            'id': info['id']
+        }
+        return self.db.query_db(user_query, add_query, data)
+
+    def update_user(self, info):
+        update_query = "UPDATE users SET first_name = :first_name, last_name = :last_name, email = :email, DOB = :DOB, description = :description WHERE id = :id"
+        data = {
+            'first_name': info['first_name'],
+            'last_name': info['last_name'],
+            'email': info['email'],
+            'DOB': info['DOB'],
+            'description': info['description'],
+            'id': info['id']
+        }
+        return self.db.query_db(update_query, data)
+
     def post_message(self,id,mdata):
         id=id
-        query = "INSERT into messages (message, created_at, updated_at, user_id, rec_id) values(:message, NOW(), NOW(), :user_id, :rec_id)" 
+        query = "INSERT into messages (message, created_at, updated_at, user_id, rec_id) values(:message, NOW(), NOW(), :user_id, :rec_id)"
         data = {
-            'message': mdata['message'], 
+            'message': mdata['message'],
             'user_id': mdata['user_id'],
             'rec_id': id,
         }
@@ -204,9 +225,9 @@ class User(Model):
         return True
 
     def post_comment(self,cdata):
-        query = "INSERT into comments (comment, created_at, updated_at, message_id, user_id) values(:comment, NOW(), NOW(), :msg_id, :user_id)" 
+        query = "INSERT into comments (comment, created_at, updated_at, message_id, user_id) values(:comment, NOW(), NOW(), :msg_id, :user_id)"
         data = {
-            'comment': cdata['comment'], 
+            'comment': cdata['comment'],
             'msg_id': cdata['message_id'],
             'user_id': cdata['uid']
         }
@@ -223,6 +244,7 @@ class User(Model):
     def get_comments(self,id):
         query = "SELECT users.id, first_name, last_name, comment, comments.created_at, comments.message_id FROM users JOIN comments ON users.id = comments.user_id ORDER BY comments.created_at"
         return self.db.query_db(query)
+
 
     def edit_dog(self,ddata):
         query = 'UPDATE dogs SET name=:name, type=:type, description=:description, DOB=:DOB, gender=:gender WHERE user_id = :user_id'
@@ -243,3 +265,4 @@ class User(Model):
             'id': id
         }
         return self.db.query_db(query, data)
+

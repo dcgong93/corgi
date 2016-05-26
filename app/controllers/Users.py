@@ -167,8 +167,25 @@ class Users(Controller):
 
     def edit(self,id):
         id=session['id']
+        pf_update = {
+            'id':id,
+            'first_name': request.form['first_name'],
+            'last_name': request.form['last_name'],
+            'email': request.form['email'],
+            'DOB': request.form['dob'],
+            'description': request.form['description'],
+        }
+        update = self.models['User'].update_user(pf_update)
         user = self.models['User'].get_user_id(id)
-        return self.load_view('edit_profile.html', user=user[0])
+        return redirect('/profile/'+id, user=user[0], update=update)
+
+    def like(self, url_id):
+        info = {
+            id:session['id'],
+            url_id:url_id
+        }
+        like = self.models['User'].liked(info)
+        return redirect('/profile/'+ str(edata['host_id']))
 
     def post_message(self,id):
         id = id
@@ -192,6 +209,7 @@ class Users(Controller):
         self.models['User'].post_comment(cdata)
         return redirect('/profile/' + uid )
 
+
     def edit_dog(self,uid):
         uid = uid
         ddata = {
@@ -205,3 +223,4 @@ class Users(Controller):
         self.models['User'].edit_dog(ddata)
 
         return redirect('/profile/' + uid )
+
