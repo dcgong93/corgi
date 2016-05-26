@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <title>Event Description</title>
-    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCln8jBJ-Mwall5Zyt06hA5079cS_0Cc3w&libraries=places"></script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrq2E3BQ4VJwKEWW5QOz1Ceg_z4bQ_p9M&callback=initialize" async defer></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -12,18 +15,23 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
     <script>
-      var myCenter=new google.maps.LatLng(37.55328765,-122.16522217);
-      var marker;
 
-      function initialize()
-      {
-      var mapProp = {
-          center:myCenter,
-          zoom:12,
-          mapTypeId:google.maps.MapTypeId.ROADMAP
-          };
+      var map=new google.maps.Map(document.getElementById("map"),mapDiv);
 
-      var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+      function initialize() {
+        var mapDiv = document.getElementById('map');
+        var map = new google.maps.Map(mapDiv, {
+          myCenter: {lat: 37.7749, lng: -122.4194},
+          zoom: 12
+        });
+        mapTypeId:google.maps.MapTypeId.ROADMAP
+      };
+
+      var input = document.getElementById('pac-input');
+      autocomplete = new google.maps.places.Autocomplete(input);
+      var searchBox = new google.maps.places.SearchBox(input, {
+        bounds: defaultBounds
+      });
 
       var marker=new google.maps.Marker({
         position:myCenter,
@@ -31,8 +39,8 @@
         animation:google.maps.Animation.BOUNCE
         });
 
-    marker.setMap(map);
-    }
+      marker.setMap(map);
+      }
 
     google.maps.event.addDomListener(window, 'load', initialize);
     </script>
@@ -109,7 +117,16 @@
         <div class="col-sm-8">
           <p>{{event[0]['location']}}</p>
         </div>
-        <div id="googleMap" style="width:500px;height:380px;"></div>
+
+
+        <!-- START GOOGLE MAPS -->
+        <div>
+          <input id="pac-input" class="controls" type="text" placeholder="Search" />
+          <div id="map" style="width:500px;height:380px;"></div>
+        </div>
+        <!-- END GOOGLE MAPS -->
+
+
       </div>
       <div id="event_description" class="row">
         <div class="col-sm-4">

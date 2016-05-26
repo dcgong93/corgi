@@ -63,7 +63,9 @@ class Users(Controller):
         pf_info = self.models['User'].get_user_id(url_id)
         events_hosting = self.models['User'].get_events_hosting(url_id)
         events_attending = self.models['User'].get_events_attending(id)
-        return self.load_view('profile.html', events_hosting = events_hosting, events_attending = events_attending, user = user_info[0], pf_info=pf_info[0] )
+        messages = self.models['User'].get_messages(url_id)
+        comments = self.models['User'].get_comments(url_id)
+        return self.load_view('profile.html', events_hosting = events_hosting, events_attending = events_attending, user = user_info[0], pf_info=pf_info[0], comments = comments, messages = messages)
 
 
 
@@ -140,7 +142,7 @@ class Users(Controller):
             'user_id': session['id']
         }
         stop_attend = self.models['User'].stop_attend(adata)
-        return redirect('/profile/' + str(adata['u']))
+        return redirect('/profile/' + str(adata['user_id']))
 
     def add_friend(self,id):
         id=id
@@ -162,5 +164,44 @@ class Users(Controller):
 
     def edit(self,id):
         id=session['id']
+        pf_update = {
+            'id':id,
+            'first_name': request.form['first_name'],
+            'last_name': request.form['last_name'],
+            'email': request.form['email'],
+            'DOB': request.form['dob'],
+            'description': request.form['description'],
+        }
+        update = self.models['User'].update_user(pf_update)
         user = self.models['User'].get_user_id(id)
-        return self.load_view('edit_profile.html', user=user[0])
+        return redirect('/profile/'+id, user=user[0], update=update)
+
+    def like(self, url_id):
+        info = {
+            id:session['id'],
+            url_id:url_id
+        }
+        like = self.models['User'].liked(info)
+        return redirect('/profile/'+ str(edata['host_id']))
+
+    def post_message(self,id):
+        id = id
+        mdata = {
+            'message' : request.form['message'],
+            'user_id' : session['id']
+        }
+        self.models['User'].post_message(id,mdata)
+        return redirect('/profile/' + id)
+
+    def post_comment(self,mid,uid):
+        msg_id = mid
+        uid = uid
+
+        cdata = {
+            'comment' : request.form['comment'],
+            'message_id' : msg_id,
+            'uid': session['id']
+        }
+        print cdata
+        self.models['User'].post_comment(cdata)
+        return redirect('/profile/' + uid )
