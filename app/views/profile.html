@@ -64,12 +64,17 @@
 
 			<!-- start rating -->
 			<div id="rating" class="col-sm-4 text-center">
-				<h4>100% of the people recommended {{pf_info.first_name}}.</h4><br />
+				<h4>{{likes}}% of the people recommended {{pf_info.first_name}}.</h4><br />
 				<div id="likes" class="row">
-					<form name="ratings" action='/like/{{pf_info.id}}' method='post'>
-							<input type="button" class="btn btn-info" name="like" value="Like">
-							<input type="button" class="btn btn-warning" name="dislike" value="Dislike">
+					<form action='/like/{{pf_info.id}}' method='post'>
+              <input type="hidden" name="likes" value="like">
+							<input type="submit" class="btn btn-info" value="Like">							
 					</form>
+          <br>
+          <form action='/like/{{pf_info.id}}' method='post'>
+              <input type="hidden" name="likes" value="dislike">
+              <input type="submit" class="btn btn-warning" value="Dislike">
+          </form>
 				</div>
 			</div>
 			<!-- END RATING -->
