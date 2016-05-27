@@ -3,6 +3,7 @@ from system.core.model import Model
 import re
 
 
+
 class User(Model):
     def __init__(self):
         super(User, self).__init__()
@@ -72,22 +73,12 @@ class User(Model):
 
 
         if user:
-
             name = user[0]['first_name']
             id = user[0]['id']
             if self.bcrypt.check_password_hash(user[0]['pw_hash'], password):
                 return {'name':name, 'id':id}
             else:
                 return False
-
-    # def user(self):
-    #     query = "SELECT * FROM users WHERE id = :id"
-    #     data = {
-    #         'id': id
-    #     }
-
-    #     current_user = self.db.query_db(query, data)
-    #     return current_user
 
 
     def add_message_model(self, message_info):
