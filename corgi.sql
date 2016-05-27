@@ -67,7 +67,7 @@ CREATE TABLE `dogs` (
   PRIMARY KEY (`id`),
   KEY `fk_dogs_users_idx` (`user_id`),
   CONSTRAINT `fk_dogs_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,6 +76,7 @@ CREATE TABLE `dogs` (
 
 LOCK TABLES `dogs` WRITE;
 /*!40000 ALTER TABLE `dogs` DISABLE KEYS */;
+INSERT INTO `dogs` VALUES (2,'Lucy','Cocker','Yay','0000-00-00','female','2016-05-26 11:49:11','2016-05-26 11:49:11',1),(6,'Kyc','cocker',NULL,NULL,NULL,NULL,NULL,10);
 /*!40000 ALTER TABLE `dogs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,7 +125,7 @@ CREATE TABLE `friendships` (
   PRIMARY KEY (`id`,`user_id`),
   KEY `fk_friendships_users1_idx` (`user_id`),
   CONSTRAINT `fk_friendships_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,8 +134,33 @@ CREATE TABLE `friendships` (
 
 LOCK TABLES `friendships` WRITE;
 /*!40000 ALTER TABLE `friendships` DISABLE KEYS */;
-INSERT INTO `friendships` VALUES (1,1,3);
+INSERT INTO `friendships` VALUES (1,1,3),(2,10,1);
 /*!40000 ALTER TABLE `friendships` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `likes`
+--
+
+DROP TABLE IF EXISTS `likes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `likes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `liker` int(11) DEFAULT NULL,
+  `liked` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `likes`
+--
+
+LOCK TABLES `likes` WRITE;
+/*!40000 ALTER TABLE `likes` DISABLE KEYS */;
+INSERT INTO `likes` VALUES (2,1,1),(51,1,10),(52,1,10),(53,1,10),(54,1,10),(55,1,10),(56,1,10),(57,1,10),(58,1,10),(59,1,10),(60,1,10),(61,1,10),(62,1,10),(63,1,10),(64,1,10),(65,1,10),(66,1,10),(67,1,10),(68,1,10),(69,1,10),(70,1,10),(71,1,10),(72,1,10),(73,1,10),(74,1,10),(75,1,10),(76,1,10),(77,1,10),(78,1,10),(79,1,10),(80,1,10),(81,1,10),(82,1,10),(83,1,10),(84,1,10),(85,1,10),(86,1,10),(87,1,10),(88,1,10),(89,1,10),(90,1,10),(91,1,10),(92,1,10),(93,1,10),(94,1,10),(95,1,10),(96,1,10),(97,1,10),(98,1,10),(99,1,10),(100,1,10),(101,1,10),(102,1,10),(103,1,10),(104,1,10),(105,1,1),(106,1,1),(107,1,1),(108,1,1),(109,1,1),(110,1,1),(111,1,1),(112,1,1),(113,1,1),(114,1,1),(115,1,1),(116,1,1),(117,1,1),(118,1,1),(119,1,1),(120,1,1),(121,1,10);
+/*!40000 ALTER TABLE `likes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -184,8 +210,10 @@ CREATE TABLE `users` (
   `description` text,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
+  `likes` int(11) DEFAULT NULL,
+  `dislikes` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,7 +222,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Ana','Thomas','anathomasity@gmail.com','$2b$12$fbrE3xQL8YYCMXcumUpcx.9afPLzMi1Fa99QWCwMPISPU208nOfwG','1993-04-30',NULL,NULL,NULL),(3,'Mike','Thomas','mike@gmail.com','$2b$12$iXtEzmDt.f/OW44VR./rKek0.ygMgJFysfzTzb0cQMrqI./759Hv.','1998-05-12',NULL,NULL,NULL);
+INSERT INTO `users` VALUES (1,'Ana','Thomas','anathomasity@gmail.com','$2b$12$fbrE3xQL8YYCMXcumUpcx.9afPLzMi1Fa99QWCwMPISPU208nOfwG','1993-04-30','',NULL,NULL,8,9),(10,'Mike','Thomas','mike@gmail.com','$2b$12$ufCw6XIVbvJDN0d7YkN3cecIUscfJiVcw.0zXYfLdbXg6j2yEDfda','1989-10-12',NULL,NULL,NULL,38,7);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -234,4 +262,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-26 10:46:36
+-- Dump completed on 2016-05-26 22:02:13
