@@ -218,8 +218,10 @@ class User(Model):
         gets_counts = self.db.query_db(get_count,data)
         
         summ = gets_counts[0]['likes'] + gets_counts[0]['dislikes']
-        result = (float(gets_counts[0]['likes'])/summ)*100
-
+        if summ!=0:
+            result = (float(gets_counts[0]['likes'])/summ)*100
+        else:
+            result = 100
         return int(result)
 
     def update_user(self, info):
