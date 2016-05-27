@@ -37,7 +37,7 @@ class User(Model):
             return {"status": False, "errors": errors}
         else:
             hashed_pw = self.bcrypt.generate_password_hash(password)
-            query = "INSERT INTO users (first_name, last_name, email, pw_hash, DOB) VALUES (:first_name, :last_name, :email, :password, :dob);"
+            query = "INSERT INTO users (first_name, last_name, email, pw_hash, DOB, likes, dislikes) VALUES (:first_name, :last_name, :email, :password, :dob, 0, 0);"
             data = {
                 'first_name': info['first_name'],
                 'last_name': info['last_name'],
@@ -195,14 +195,34 @@ class User(Model):
         }
         return self.db.query_db(query, data)
 
-    def liked(self, info):
-        user_query ="INSERT INTO likes_count (pf_id, liker_id) VALUES (:url_id, :id)"
-        add_query = "UPDATE likes_count SET likes = likes +1 WHERE pf_id = :url_id"
+    def like(self, info):
         data = {
             'url_id': info['url_id'],
-            'id': info['id']
+            'id': info['id'],
+            'like':info['like']
         }
-        return self.db.query_db(user_query, add_query, data)
+        user_query ="INSERT INTO likes (liker, liked) VALUES (:id, :url_id)"
+        insert_like = self.db.query_db(user_query, data)
+
+        if info['like'] == 'yes':
+            add_query = "UPDATE users SET likes = likes+1 WHERE id = :url_id"
+            update_count = self.db.query_db(add_query, data)
+        elif info['like'] == 'no':
+            add_query = "UPDATE users SET dislikes = dislikes+1 WHERE id = :url_id"
+            update_count = self.db.query_db(add_query, data)
+        return True
+
+    def get_likes(self, url_id):
+        get_count = 'SELECT likes, dislikes FROM users WHERE id = :url_id'
+        data = {'url_id':url_id}
+        gets_counts = self.db.query_db(get_count,data)
+        
+        summ = gets_counts[0]['likes'] + gets_counts[0]['dislikes']
+        if summ!=0:
+            result = (float(gets_counts[0]['likes'])/summ)*100
+        else:
+            result = 100
+        return int(result)
 
     def update_user(self, info):
         update_query = "UPDATE users SET first_name = :first_name, last_name = :last_name, email = :email, DOB = :DOB, description = :description WHERE id = :id"

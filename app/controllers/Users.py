@@ -64,7 +64,8 @@ class Users(Controller):
         events_attending = self.models['User'].get_events_attending(id)
         messages = self.models['User'].get_messages(url_id)
         comments = self.models['User'].get_comments(url_id)
-        return self.load_view('profile.html', events_hosting = events_hosting, events_attending = events_attending, user = user_info[0], pf_info=pf_info[0], comments = comments, messages = messages, dog=dog[0])
+        get_likes = self.models['User'].get_likes(url_id)
+        return self.load_view('profile.html', events_hosting = events_hosting, events_attending = events_attending, user = user_info[0], pf_info=pf_info[0], comments = comments, messages = messages, dog=dog[0], likes = get_likes)
 
 
 
@@ -162,12 +163,23 @@ class Users(Controller):
         return redirect ('/users')
 
     def like(self, url_id):
-        info = {
-            id:session['id'],
-            url_id:url_id
-        }
-        like = self.models['User'].liked(info)
-        return redirect('/profile/'+ str(edata['host_id']))
+        url_id = url_id
+        if request.form['likes'] == 'like':
+            info = {
+                'id' :session['id'],
+                'url_id' : url_id,
+                'like': 'yes'
+            }
+        elif request.form['likes'] == 'dislike':
+            info = {
+                'id':session['id'],
+                'url_id':url_id,
+                'like': 'no'
+            }
+
+        like = self.models['User'].like(info)
+
+        return redirect('/profile/'+ url_id)
 
     def post_message(self,id):
         id = id
